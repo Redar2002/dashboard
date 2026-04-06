@@ -2,16 +2,23 @@
 venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 
-# IDEs
-.vscode/
-.idea/
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/config.toml
 
 # Environment / Secret
 .env
 
-# Streamlit Local
-.streamlit/secrets.toml
+# Large Files & Temp
+tmp/
+*.mp3
+*.wav
+*.mp4
+*.m4a
+*.pdf
 
 # OS
 .DS_Store
