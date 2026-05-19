@@ -6,3 +6,5 @@ imageio-ffmpeg
 pandas
 gtts
 pydub
+pyodbc
+bcrypt

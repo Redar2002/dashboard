@@ -7,26 +7,498 @@ from utils_topic_pdf import create_topic_pdf
 import time
 from google.api_core.exceptions import ResourceExhausted, ServiceUnavailable, InternalServerError, DeadlineExceeded
 import utils_audio
-import utils_theme
-
-
-# MODEL initialization moved to sidebar for dynamic configuration
-
-
+import utils_sql
+import utils_ai_structurer
+import utils_auth
 import utils_data
 
+# ═══════════════════════════════════════════════════════════════════════════
+# CONFIGURATION DE LA PAGE
+# ═══════════════════════════════════════════════════════════════════════════
 
-# -------------------------
-# Utils
-# -------------------------
+st.set_page_config(
+    page_title="Meeting Intelligence", 
+    page_icon="🎙️", 
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
-# Redirection of data functions to shared utility
+# ═══════════════════════════════════════════════════════════════════════════
+# CSS PREMIUM - DESIGN SAAS MODERNE
+# ═══════════════════════════════════════════════════════════════════════════
+
+st.markdown("""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* GLOBAL */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    * {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    
+    .main {
+        background-color: #F8FAFC;
+        padding: 2rem 1rem;
+    }
+    
+    .main-container {
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* HERO SECTION */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    .hero-card {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+        border-radius: 24px;
+        padding: 3rem 2.5rem;
+        margin-bottom: 2.5rem;
+        border: 1px solid #E5E7EB;
+        box-shadow: 0 4px 24px rgba(124, 58, 237, 0.08);
+        text-align: center;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #7C3AED 0%, #D946EF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        color: #475569;
+        font-weight: 400;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+    
+    .hero-tagline {
+        font-size: 1.5rem;
+        color: #1E293B;
+        font-weight: 600;
+        margin-top: 1rem;
+    }
+    
+    .gradient-text {
+        background: linear-gradient(135deg, #7C3AED 0%, #D946EF 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* FEATURE CARDS */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+    }
+    
+    .feature-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 1.8rem;
+        border: 1px solid #E5E7EB;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(124, 58, 237, 0.15);
+        border-color: #D946EF;
+    }
+    
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .feature-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 0.5rem;
+    }
+    
+    .feature-desc {
+        font-size: 0.9rem;
+        color: #64748B;
+        line-height: 1.6;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* SECTION CARDS */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    .section-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid #E5E7EB;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #7C3AED;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .section-caption {
+        font-size: 0.9rem;
+        color: #64748B;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* BADGES */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    .badge {
+        display: inline-block;
+        padding: 0.4rem 0.9rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+    
+    .badge-primary {
+        background: linear-gradient(135deg, #8B5CF6 0%, #D946EF 100%);
+        color: white;
+    }
+    
+    .badge-count {
+        background: rgba(124, 58, 237, 0.1);
+        color: #7C3AED;
+        border: 1px solid rgba(124, 58, 237, 0.2);
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* STATUS MESSAGES */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    .status-success {
+        background: rgba(16, 185, 129, 0.1);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        margin: 1rem 0;
+    }
+    
+    .status-success-title {
+        color: #059669;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+    }
+    
+    .status-success-text {
+        color: #047857;
+        font-size: 0.9rem;
+    }
+    
+    .status-error {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        margin: 1rem 0;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* SIDEBAR STYLING */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    [data-testid="stSidebar"] {
+        background-color: #0F172A;
+    }
+    
+    [data-testid="stSidebar"] * {
+        color: #E2E8F0 !important;
+    }
+    
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3 {
+        color: #F8FAFC !important;
+    }
+    
+    /* Add emoji to app page in sidebar */
+    [data-testid="stSidebarNav"] li:first-child a::before {
+        content: "🏠";
+        margin-right: 0px !important;
+    }
+    
+    .sidebar-section-title {
+        color: #F1F5F9 !important;
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.1em !important;
+        margin-top: 2rem !important;
+        margin-bottom: 1rem !important;
+        padding-left: 0.25rem !important;
+        opacity: 0.8 !important;
+    }
+    
+    /* User Card in Sidebar */
+    .user-card {
+        background: linear-gradient(135deg, #1E293B 0%, #334155 100%);
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #475569;
+    }
+    
+    .user-name {
+        color: #F8FAFC !important;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+    
+    .user-role {
+        color: #94A3B8 !important;
+        font-size: 0.8rem;
+    }
+    
+    /* Sidebar selectbox */
+    [data-testid="stSidebar"] .stSelectbox > div > div {
+        background: rgba(30, 41, 59, 0.5) !important;
+        border: 1px solid rgba(148, 163, 184, 0.2) !important;
+        border-radius: 12px !important;
+        color: #F1F5F9 !important;
+    }
+    
+    [data-testid="stSidebar"] .stSelectbox svg {
+        fill: #94A3B8 !important;
+    }
+    
+    /* Model Status Badge */
+    .model-status {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        background: rgba(16, 185, 129, 0.15) !important;
+        border: 1px solid rgba(16, 185, 129, 0.3) !important;
+        padding: 4px 10px !important;
+        border-radius: 20px !important;
+        margin-top: 0.5rem !important;
+    }
+    
+    .status-dot {
+        width: 6px !important;
+        height: 6px !important;
+        border-radius: 50% !important;
+        background-color: #10B981 !important;
+        box-shadow: 0 0 8px #10B981 !important;
+    }
+    
+    .model-name {
+        color: #10B981 !important;
+        font-weight: 600 !important;
+        font-size: 0.75rem !important;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* BUTTONS */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    .stButton > button {
+        background: linear-gradient(135deg, #7C3AED 0%, #D946EF 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 0.7rem 1.5rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+    
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    }
+    
+    .stDownloadButton > button {
+        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 0.7rem 1.5rem;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* INPUTS */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    .stTextInput > div > div > input,
+    .stSelectbox > div > div > select,
+    .stTextArea > div > div > textarea {
+        border-radius: 10px;
+        border: 1px solid #E5E7EB;
+        padding: 0.7rem 1rem;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+    
+    .stTextInput > div > div > input:focus,
+    .stSelectbox > div > div > select:focus,
+    .stTextArea > div > div > textarea:focus {
+        border-color: #7C3AED;
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* FILE UPLOADER */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    [data-testid="stFileUploader"] {
+        background: #ffffff;
+        border: 2px dashed #D1D5DB;
+        border-radius: 12px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+    
+    [data-testid="stFileUploader"]:hover {
+        border-color: #7C3AED;
+        background: #F9FAFB;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* METRICS */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    [data-testid="stMetric"] {
+        background: #ffffff;
+        padding: 1rem;
+        border-radius: 12px;
+        border: 1px solid #E5E7EB;
+    }
+    
+    [data-testid="stMetricLabel"] {
+        color: #64748B;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+    
+    [data-testid="stMetricValue"] {
+        color: #7C3AED;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* SIDEBAR NAV FIX */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    [data-testid="stSidebarNavItems"] li:first-child a {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        flex-direction: row !important;
+    }
+    
+    [data-testid="stSidebarNavItems"] li:first-child a span:last-child {
+        display: inline-flex !important;
+        align-items: center !important;
+    }
+    
+    
+     
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* EXPANDER */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    .streamlit-expanderHeader {
+        background: #F9FAFB;
+        border-radius: 10px;
+        font-weight: 600;
+        color: #1E293B;
+    }
+    
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* DIVIDER */
+    /* ─────────────────────────────────────────────────────────────────── */
+    
+    hr {
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #E5E7EB, transparent);
+        margin: 2rem 0;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# ═══════════════════════════════════════════════════════════════════════════
+# LOGO SIDEBAR
+# ═══════════════════════════════════════════════════════════════════════════
+
+import base64
+try:
+    with open("logo_inspirigence.jpg", "rb") as f:
+        data = base64.b64encode(f.read()).decode("utf-8")
+    st.markdown(f"""
+        <style>
+        [data-testid="stSidebarNav"]::before {{
+            content: "";
+            display: block;
+            margin: 20px auto;
+            width: 80%;
+            height: 120px;
+            background-image: url("data:image/jpeg;base64,{data}");
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }}
+        </style>
+    """, unsafe_allow_html=True)
+except Exception:
+    pass
+
+# ═══════════════════════════════════════════════════════════════════════════
+# AUTHENTIFICATION
+# ═══════════════════════════════════════════════════════════════════════════
+
+_current_user = utils_auth.require_auth()
+
+# ═══════════════════════════════════════════════════════════════════════════
+# UTILS FUNCTIONS
+# ═══════════════════════════════════════════════════════════════════════════
+
 load_meetings = utils_data.load_meetings
 save_meetings = utils_data.save_meetings
 
-
 def generate_improvement_report(transcripts, model):
-
     joined = "\n\n".join(transcripts)
     is_plural = len(transcripts) > 1
     
@@ -139,19 +611,16 @@ TRANSCRIPTION :
         st.error(f"❌ Échec de génération du rapport : {e}")
         raise
     
-    # Simple parsing to separate Text from JSON
     text_content = response.text
     kpi_data = None
     
-    # Prepend the requested introduction paragraph
     if is_plural:
-        intro = f"ANALYSE DES RÉUNIONS\n\nCe rapport identifie les forces et faiblesses de ces échanges et propose des actions concrètes d’amélioration.\n\n"
+        intro = f"ANALYSE DES RÉUNIONS\n\nCe rapport identifie les forces et faiblesses de ces échanges et propose des actions concrètes d'amélioration.\n\n"
         pdf_header = "RAPPORT D'AMÉLIORATION (MULTIPLES)"
     else:
-        intro = f"ANALYSE DE LA RÉUNION\n\nCe rapport identifie les forces et faiblesses de cet échange et propose des actions concrètes d’amélioration.\n\n"
+        intro = f"ANALYSE DE LA RÉUNION\n\nCe rapport identifie les forces et faiblesses de cet échange et propose des actions concrètes d'amélioration.\n\n"
         pdf_header = "RAPPORT D'AMÉLIORATION"
     
-    # Actually, let's just properly format it.
     text_content = intro + text_content
 
     if "---JSON-STATS---" in text_content:
@@ -159,27 +628,18 @@ TRANSCRIPTION :
         text_content = parts[0].strip()
         try:
             json_str = parts[1].strip()
-            # Clean potential markdown code blocks if AI puts them
             json_str = json_str.replace("```json", "").replace("```", "")
             kpi_data = json.loads(json_str)
         except Exception as e:
             print(f"Error parsing JSON KPIs: {e}")
             
-    # Apply glossary cleaning
     text_content = config.clean_text_glossary(text_content)
     
     return text_content, kpi_data, pdf_header
 
-
 def generate_global_report(transcripts_dict, model):
-    """Generates a high-level Strategic Audit of all combined meetings.
-    Returns (text_content, kpi_data) where kpi_data may be None on parsing failure.
-    """
-    
-    # --- Build a rich, well-structured history for the prompt ---
-    # Limite : max 1200 caractères par réunion pour éviter le dépassement de tokens Gemini
     MAX_CHARS_PER_MEETING = 1200
-    MAX_TOTAL_MEETINGS = 20  # Ne pas dépasser 20 réunions dans un seul prompt
+    MAX_TOTAL_MEETINGS = 20
     
     history_blocks = []
     items = list(transcripts_dict.items())[:MAX_TOTAL_MEETINGS]
@@ -271,7 +731,6 @@ HISTORIQUE DES ÉCHANGES ({len(transcripts_dict)} réunions analysées) :
     except Exception as e:
         return (f"Erreur lors de la génération de l'audit global : {e}", None)
 
-    # --- Parse text + JSON-STATS ---
     kpi_data = None
     text_content = raw
 
@@ -289,20 +748,8 @@ HISTORIQUE DES ÉCHANGES ({len(transcripts_dict)} réunions analysées) :
     return text_content, kpi_data
 
 def generate_pro_minutes(report_text, model, titles=None):
-    """Generates a structured formal Minutes of Meeting (Compte Rendu Pro) for the HubSpot Design"""
-    
     titles_str = ", ".join(titles) if titles else "Réunion commerciale"
     prompt = f"""
-Tu es un expert en secrétariat de direction. Ta mission est de produire un **COMPTE RENDU DE RÉUNION** formel.
-STRUCTURE STRICTE À RESPECTER (pour parsing PDF) :
-
-# COMPTE RENDU DE RÉUNION
-TITRE: [Nom du projet ou titre de la réunion]
-DATE: {time.strftime("%d/%m/%Y")}
-LIEU: RABAT
-
-ORGANISATEUR: Inspirigence Groupe
-TYPE: Réunion commerciale / Stratégique
 Tu es un expert en secrétariat de direction. Ta mission est de produire un **COMPTE RENDU FLASH**.
 Objectif : Tout doit tenir sur une seule page PDF, très aéré.
 
@@ -351,11 +798,7 @@ RAPPORT SOURCE :
     except Exception as e:
         return f"Erreur lors de la génération du compte rendu : {str(e)}"
 
-
 def generate_followup_email(report_text, kpis, model):
-    """Generates a high-conversion follow-up email based on the report"""
-    
-    # Extract key info safely
     global_score = kpis.get("global_score", 0) if kpis else 0
     pain = kpis.get("pain_intensity", "Non spécifié") if kpis else "Non spécifié"
     
@@ -391,10 +834,7 @@ def generate_followup_email(report_text, kpis, model):
     except Exception as e:
         return f"Erreur lors de la génération de l'email : {str(e)}"
 
-
 def extract_objections(transcript, model):
-    """Extracts objections and provides rebuttal scripts"""
-    
     prompt = f"""
     Tu es un expert en négociation commerciale et gestion des objections.
     
@@ -403,7 +843,7 @@ def extract_objections(transcript, model):
     Pour chaque objection, propose une réponse "Scriptée" idéale.
     
     TRANSCRIPT :
-    {transcript[:25000]}  # Limite de tokens
+    {transcript[:25000]}
     
     FORMAT DE SORTIE (JSON STRICT) :
     [
@@ -431,11 +871,7 @@ def extract_objections(transcript, model):
         print(f"Erreur extraction objections: {e}")
         return []
 
-
-
-
 def save_kpis_to_meeting(meeting_index, kpis):
-    """Save KPIs to a specific meeting in meetings.json"""
     from datetime import datetime
     
     meetings = load_meetings()
@@ -447,13 +883,9 @@ def save_kpis_to_meeting(meeting_index, kpis):
             return True
     return False
 
-
-
 def semantic_search(query, selected_indices):
-    """Search for information across selected meetings using AI"""
     meetings = load_meetings()
     
-    # Build context from selected meetings
     search_context = []
     for idx in selected_indices:
         meeting = meetings[idx]
@@ -472,10 +904,9 @@ def semantic_search(query, selected_indices):
     if not search_context:
         return None
     
-    # Create prompt for AI search
     context_text = "\n\n".join([
         f"[{item['meeting_title']} - {int(item['start_time']//60)}:{int(item['start_time']%60):02d}] {item['text']}"
-        for item in search_context[:100]  # Limit to first 100 segments to avoid token limits
+        for item in search_context[:100]
     ])
     
     prompt = f"""Tu es un assistant de recherche intelligent. L'utilisateur cherche des informations dans des transcriptions de réunions.
@@ -533,12 +964,9 @@ INSTRUCTIONS CRITIQUES :
     
     return {"results": [], "summary": "La recherche a échoué après plusieurs tentatives."}
 
-
 def generate_topic_explanation(topic, selected_indices):
-    """Generate an explanatory report about a specific topic from meeting transcripts"""
     meetings = load_meetings()
     
-    # Gather all relevant content from selected meetings
     all_content = []
     for idx in selected_indices:
         meeting = meetings[idx]
@@ -604,93 +1032,29 @@ INSTRUCTIONS :
     except Exception as e:
         return f"Erreur lors de la génération du rapport : {str(e)}"
 
+# ═══════════════════════════════════════════════════════════════════════════
+# SIDEBAR
+# ═══════════════════════════════════════════════════════════════════════════
 
-# -------------------------
-# UI
-# -------------------------
-
-st.set_page_config(page_title="Meeting Intelligence", page_icon="📊", layout="wide")
-
-# ── Logo & Title Styling ───────────────────────────────────────────────
-st.markdown("""
-<style>
-h1 {
-    background: linear-gradient(90deg, #8B5CF6, #D946EF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    padding-bottom: 10px;
-}
-h2 {
-    color: #A78BFA !important;
-}
-h3 {
-    color: #C084FC !important;
-}
-/* Align sidebar "Home" icon correctly */
-[data-testid="stSidebarNavItems"] li:first-child a {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-    flex-direction: row !important;
-}
-[data-testid="stSidebarNavItems"] li:first-child a span:last-child {
-    display: inline-flex !important;
-    align-items: center !important;
-}
-[data-testid="stSidebarNavItems"] li:first-child a span:last-child::before {
-    content: "🏠";
-    margin-right: 0.3rem;
-}
-</style>
-""", unsafe_allow_html=True)
-
-import base64
-try:
-    with open("logo_inspirigence.jpg", "rb") as f:
-        data = base64.b64encode(f.read()).decode("utf-8")
-    st.markdown(f"""
-        <style>
-        [data-testid="stSidebarNav"]::before {{
-            content: "";
-            display: block;
-            margin: 20px auto;
-            width: 80%;
-            height: 120px;
-            background-image: url("data:image/jpeg;base64,{data}");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }}
-        </style>
-    """, unsafe_allow_html=True)
-except Exception:
-    pass
-
-# ── Hero Header ───────────────────────────────────────────────
-st.title("Meeting Intelligence")
-st.caption("Analyse stratégique propulsée par Gemini AI — Insights actionables en temps réel")
-
-# -------------------------
-# Sidebar
-# -------------------------
 with st.sidebar:
-    st.markdown('<div style="color: #94A3B8; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px; border-bottom: 1px solid #334155; padding-bottom: 8px;">CONFIGURATION</div>', unsafe_allow_html=True)
+    # User card
+    utils_auth.render_user_sidebar()
     
-    utils_theme.render_theme_toggle()
+    st.markdown('<div class="sidebar-section-title">CONFIGURATION</div>', unsafe_allow_html=True)
     
     # Model Selection
     QUOTA_LABELS = {
-        "models/gemini-2.0-flash":      "gemini-2.0-flash      ✅ RECOMMANDÉ (Stable)",
-        "models/gemini-flash-latest":   "gemini-flash-latest   ⚡ Switch ici si 429",
-        "models/gemini-pro-latest":     "gemini-pro-latest     🔬 Switch ici si 429",
-        "models/gemini-2.5-flash":      "gemini-2.5-flash      ⚠️ QUOTA LIMITÉ (20/j)",
+        "models/gemini-2.0-flash":      "gemini-2.0-flash      ✅ RECOMMANDÉ",
+        "models/gemini-flash-latest":   "gemini-flash-latest   ⚡ Switch si 429",
+        "models/gemini-pro-latest":     "gemini-pro-latest     🔬 Switch si 429",
+        "models/gemini-2.5-flash":      "gemini-2.5-flash      ⚠️ QUOTA LIMITÉ",
     }
+    
     try:
         available_models = config.list_available_models()
         if not available_models:
             available_models = ["models/gemini-flash-latest"]
 
-        # Default to gemini-2.0-flash-lite for free tier safety 
         default_idx = 0
         for i, m in enumerate(available_models):
             if "flash-lite" in m.lower():
@@ -699,27 +1063,30 @@ with st.sidebar:
 
         labels = [QUOTA_LABELS.get(m, m) for m in available_models]
         selected_label = st.selectbox("🤖 Choisir le modèle", labels, index=default_idx)
-        # Map label back to model id
         selected_model = available_models[labels.index(selected_label)]
 
     except Exception as e:
         st.error(f"Erreur chargement modèles: {e}")
         selected_model = "models/gemini-2.0-flash-lite"
 
-    # Initialize Model with selection
+    # Initialize Model
     try:
         MODEL = config.configure(model_name=selected_model)
         
-        # FINAL VERIFICATION BADGE
         clean_model_name = MODEL.model_name.replace('models/', '')
-        st.markdown(f'<div style="border: 1px solid #8B5CF6; border-radius: 6px; padding: 8px 12px; font-size: 0.85rem; margin-top: 10px; display: flex; align-items: center; gap: 8px;"><div style="width: 8px; height: 8px; border-radius: 50%; background-color: #10B981;"></div><span>Actif: <strong>{clean_model_name}</strong></span></div>', unsafe_allow_html=True)
+        st.markdown(f"""
+        <div class="model-status">
+            <div class="status-dot"></div>
+            <span class="model-name">Actif: {clean_model_name}</span>
+        </div>
+        """, unsafe_allow_html=True)
     except Exception as e:
         st.error(f"Erreur config model: {e}")
         MODEL = None
 
     st.markdown("---")
 
-    # ── Bouton Test API ──────────────────────────────────────────
+    # Test API Button
     if MODEL and st.button("🔌 Tester l'API", use_container_width=True, type="primary"):
         with st.spinner("Test en cours..."):
             try:
@@ -728,41 +1095,56 @@ with st.sidebar:
                     generation_config={"max_output_tokens": 5}
                 )
                 st.markdown("""
-                    <div style="background:#064e3b; border-left:4px solid #10b981;
-                                padding:10px; border-radius:8px; margin-top:8px;">
-                        <p style="margin:0; color:#6ee7b7; font-weight:bold;">✅ API opérationnelle</p>
-                        <p style="margin:0; font-size:x-small; color:#a7f3d0;">
-                            Quota disponible — vous pouvez générer des rapports.
-                        </p>
+                    <div class="status-success">
+                        <div class="status-success-title">✅ API opérationnelle</div>
+                        <div class="status-success-text">Quota disponible — vous pouvez générer des rapports.</div>
                     </div>
                 """, unsafe_allow_html=True)
             except Exception as e:
                 err = str(e)
                 if "429" in err or "ResourceExhausted" in err:
                     st.markdown("""
-                        <div style="background:#450a0a; border-left:4px solid #ef4444;
-                                    padding:10px; border-radius:8px; margin-top:8px;">
-                            <p style="margin:0; color:#fca5a5; font-weight:bold;">🔴 Quota épuisé (429)</p>
-                            <p style="margin:0; font-size:x-small; color:#fecaca;">
-                                Réessayez demain après 00h00 UTC ou activez la facturation.
-                            </p>
+                        <div class="status-error">
+                            <div style="color:#EF4444; font-weight:700; margin-bottom:0.3rem;">🔴 Quota épuisé (429)</div>
+                            <div style="color:#DC2626; font-size:0.9rem;">Réessayez demain après 00h00 UTC ou activez la facturation.</div>
                         </div>
                     """, unsafe_allow_html=True)
                 elif "404" in err or "NotFound" in err:
                     st.markdown("""
-                        <div style="background:#431407; border-left:4px solid #f97316;
-                                    padding:10px; border-radius:8px; margin-top:8px;">
-                            <p style="margin:0; color:#fdba74; font-weight:bold;">⚠️ Modèle introuvable (404)</p>
-                            <p style="margin:0; font-size:x-small; color:#fed7aa;">
-                                Ce modèle n'est pas disponible. Changez de modèle.
-                            </p>
+                        <div class="status-error">
+                            <div style="color:#F97316; font-weight:700; margin-bottom:0.3rem;">⚠️ Modèle introuvable (404)</div>
+                            <div style="color:#EA580C; font-size:0.9rem;">Ce modèle n'est pas disponible. Changez de modèle.</div>
                         </div>
                     """, unsafe_allow_html=True)
                 else:
                     st.error(f"❌ Erreur inattendue : {err[:120]}")
 
     st.markdown("---")
-    st.markdown("""<div style="margin-top: 30px; color: #94A3B8; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px; border-bottom: 1px solid #334155; padding-bottom: 8px;">CONSOLE D'ADMINISTRATION</div>""", unsafe_allow_html=True)
+
+    # SQL Server Test
+    st.markdown('<div class="sidebar-section-title">SQL SERVER</div>', unsafe_allow_html=True)
+    if st.button("🗄️ Tester la connexion SQL", use_container_width=True):
+        with st.spinner("Connexion en cours..."):
+            result = utils_sql.check_connection()
+            if result["ok"]:
+                st.markdown(f"""
+                    <div class="status-success">
+                        <div class="status-success-title">✅ SQL Server connecté</div>
+                        <div class="status-success-text">Base : <strong>{result['database']}</strong> · Driver : {result['driver']}</div>
+                    </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown(f"""
+                    <div class="status-error">
+                        <div style="color:#EF4444; font-weight:700;">❌ Connexion échouée</div>
+                        <div style="color:#DC2626; font-size:0.9rem;">{result['message']}</div>
+                    </div>
+                """, unsafe_allow_html=True)
+
+    st.markdown("---")
+    
+    # Global Audit Section
+    st.markdown('<div class="sidebar-section-title">CONSOLE D\'ADMINISTRATION</div>', unsafe_allow_html=True)
     st.caption("Générez un audit stratégique global consolidant l'ensemble de vos réunions.")
     
     if MODEL and st.button("📈 Générer Audit Global Strategique", use_container_width=True, type="primary"):
@@ -784,23 +1166,13 @@ with st.sidebar:
                 )
                 st.success(f"✅ Audit Global prêt ({len(all_meetings)} réunions analysées) !")
 
-    # --- KPI Dashboard (affiché après génération) ---
+    # KPI Dashboard
     if "global_kpis" in st.session_state and st.session_state.global_kpis:
         kpis = st.session_state.global_kpis
         st.markdown("---")
-        trend = kpis.get('conversion_probability_trend', 'N/A')
-        trend_icon = "📈" if trend == "En hausse" else ("📉" if trend == "En baisse" else "➡️")
-        pain_colors = {"Forte": "#EF4444", "Moyenne": "#F59E0B", "Faible": "#10B981"}
-        pain_color = pain_colors.get(kpis.get('avg_pain_intensity', ''), "#8B5CF6")
-        kc1, kc2, kc3, kc4 = st.columns(4)
-        with kc1:
-            st.metric("Sentiment Global", f"{kpis.get('global_score', 'N/A')}/100")
-        with kc2:
-            st.metric("Intensité Douleur", kpis.get('avg_pain_intensity', 'N/A'))
-        with kc3:
-            st.metric("Tendance Conversion", trend)
-        with kc4:
-            st.metric("Réunions Analysées", len(load_meetings()))
+        
+
+        
         topics = kpis.get('common_topics', [])
         if topics:
             tags_html = "".join([
@@ -810,7 +1182,7 @@ with st.sidebar:
                 for t in topics[:5]
             ])
             st.markdown(
-                f'<div style="margin:1rem 0;"><span style="color:#64748B;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;">'
+                f'<div style="margin:1rem 0;"><span style="color:#94A3B8;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.1em;">'
                 f'Top Sujets</span><br/><div style="margin-top:0.5rem;">{tags_html}</div></div>',
                 unsafe_allow_html=True
             )
@@ -833,12 +1205,61 @@ with st.sidebar:
 
     st.markdown("---")
 
+# ═══════════════════════════════════════════════════════════════════════════
+# MAIN CONTENT
+# ═══════════════════════════════════════════════════════════════════════════
 
+# Hero Section
+st.markdown("""
+<div class="hero-card">
+    <div class="hero-title">Meeting Intelligence</div>
+    <div class="hero-subtitle">
+        Plateforme IA pour transcription automatique, analyse stratégique et reporting commercial.
+    </div>
+    <div class="hero-tagline">
+        Transformez vos <span class="gradient-text">réunions</span> en <span class="gradient-text">insights</span> actionnables
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+# Feature Cards
+st.markdown("""
+<div class="feature-grid">
+    <div class="feature-card">
+        <div class="feature-icon">🎙️</div>
+        <div class="feature-title">Transcription Automatique</div>
+        <div class="feature-desc">Conversion audio/vidéo en texte structuré avec Gemini AI</div>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <div class="feature-title">Analyse Intelligente</div>
+        <div class="feature-desc">Rapports MEDDIC, KPIs, objections et recommandations stratégiques</div>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Tableaux Power BI</div>
+        <div class="feature-desc">Synchronisation SQL Server pour dashboards décisionnels</div>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <div class="feature-title">Recherche Sémantique</div>
+        <div class="feature-desc">Retrouvez instantanément l'information dans vos réunions</div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
 
 meetings = load_meetings()
 
-st.header("🎤 Nouvelle Réunion")
-st.caption("Uploadez un audio ou vidéo — transcription et analyse automatiques via Gemini AI")
+# ═══════════════════════════════════════════════════════════════════════════
+# NOUVELLE RÉUNION SECTION
+# ═══════════════════════════════════════════════════════════════════════════
+
+st.markdown("""
+<div class="section-card">
+    <div class="section-title">🎤 Nouvelle Réunion</div>
+    <div class="section-caption">Uploadez un audio ou vidéo — transcription et analyse automatiques via Gemini AI</div>
+</div>
+""", unsafe_allow_html=True)
 
 uploaded_file = st.file_uploader(
     "Sélectionnez un fichier (MP3, WAV, M4A, MP4)", 
@@ -849,7 +1270,7 @@ col1, col2 = st.columns([3, 1])
 with col1:
     meeting_title = st.text_input("Titre de la réunion (facultatif)", placeholder="Ex: Démo CRM - Client X")
 with col2:
-    lang_choice = st.selectbox("Langue fr/en", ["Français", "Anglais", "Mixte"])
+    lang_choice = st.selectbox("Langue", ["Français", "Anglais", "Mixte"])
 
 if st.button("🚀 Lancer la Transcription", use_container_width=True, type="primary"):
     if not uploaded_file:
@@ -864,25 +1285,21 @@ if st.button("🚀 Lancer la Transcription", use_container_width=True, type="pri
                 from datetime import datetime
                 import utils_transcription
                 
-                # Sauvegarde locale temporaire
                 os.makedirs("tmp", exist_ok=True)
                 tmp_filepath = os.path.join("tmp", f"upload_{int(time.time())}_{uploaded_file.name}")
                 
                 with open(tmp_filepath, "wb") as f:
                     f.write(uploaded_file.getbuffer())
                     
-                # Appel de la fonction de transcription et nettoyage
                 transcription_text, transcription_clean = utils_transcription.transcribe_and_clean_audio(
                     filepath=tmp_filepath, 
                     model=MODEL, 
                     lang_choice=lang_choice
                 )
                 
-                # Extraction des segments et du texte pur
                 segments, pure_text = utils_transcription.parse_transcript_to_segments(transcription_text)
                 segments_clean, pure_text_clean = utils_transcription.parse_transcript_to_segments(transcription_clean)
                 
-                # Stockage temporaire dans la session pour validation manuelle
                 st.session_state["pending_meeting"] = {
                     "title": meeting_title if meeting_title else uploaded_file.name,
                     "meeting_id": datetime.now().strftime("%Y%m%d_%H%M%S"),
@@ -894,14 +1311,12 @@ if st.button("🚀 Lancer la Transcription", use_container_width=True, type="pri
                 }
                 
                 st.session_state["transcription_finished"] = True
-                
-                # Suppression du fichier temp local
                 os.remove(tmp_filepath)
                 
             except Exception as e:
                 st.error(f"❌ Erreur lors de la transcription : {e}")
 
-# Zone de confirmation de sauvegarde (hors du bloc bouton pour persister)
+# Zone de confirmation
 if "pending_meeting" in st.session_state:
     st.markdown("---")
     st.info(f"📍 **Transcription prête pour : {st.session_state['pending_meeting']['title']}**")
@@ -928,17 +1343,25 @@ if "pending_meeting" in st.session_state:
     with st.expander("👁️ Voir la transcription nettoyée avant enregistrement", expanded=True):
         st.text_area("Texte propre", st.session_state["pending_meeting"]["transcript_clean"], height=400)
 
-                
 st.markdown("---")
 
-st.header("📂 Meetings Enregistrés")
-st.caption(f"Base de données — {len(meetings)} réunion(s) disponible(s)")
+# ═══════════════════════════════════════════════════════════════════════════
+# MEETINGS ENREGISTRÉS SECTION
+# ═══════════════════════════════════════════════════════════════════════════
 
+st.markdown(f"""
+<div class="section-card">
+    <div class="section-title">
+        📂 Meetings Enregistrés
+        <span class="badge badge-count">{len(meetings)} réunion(s)</span>
+    </div>
+    <div class="section-caption">Base de données — Sélectionnez une ou plusieurs réunions pour analyse</div>
+</div>
+""", unsafe_allow_html=True)
 
 if not meetings:
     st.info("Aucun meeting disponible")
 else:
-
     labels = [
         f"{i} - {m.get('title', m.get('filename', 'Sans titre'))}"
         for i, m in enumerate(meetings)
@@ -948,12 +1371,19 @@ else:
         "Sélectionne un ou plusieurs meetings",
         labels
     )
+
+    _btn_rapport_col, _btn_sql_col = st.columns(2)
+
+    with _btn_rapport_col:
+        _btn_rapport = st.button("📊 Générer rapport d'amélioration", type="primary", use_container_width=True)
+    with _btn_sql_col:
+        _btn_sql_direct = st.button("🗄️ Structurer & Enregistrer dans SQL Server", type="primary", use_container_width=True, key="btn_sql_pipeline")
+
+    # ══════════════════════════════════════════════════════════════════
+    # GÉNÉRATION DU RAPPORT
+    # ══════════════════════════════════════════════════════════════════
     
-
-
-
-    if st.button("📊 Générer rapport d'amélioration", type="primary"):
-
+    if _btn_rapport:
         if len(selected) == 0:
             st.warning("Sélectionne au moins un meeting")
         else:
@@ -965,7 +1395,6 @@ else:
 
             with st.spinner("Analyse en cours..."):
                 try:
-                    # Store text and kpi in session state
                     report_text, kpis, pdf_header = generate_improvement_report(transcripts, MODEL)
                     st.session_state.improvement_report = report_text
                     st.session_state.kpis = kpis
@@ -976,7 +1405,6 @@ else:
                 except Exception as e:
                     st.error(f"❌ Une erreur est survenue lors de l'analyse avec `{MODEL.model_name}` : {e}")
             
-            # Clear old Pro report when a new analysis is started
             if "pro_report" in st.session_state:
                 del st.session_state.pro_report
             if "pro_pdf_bytes" in st.session_state:
@@ -984,13 +1412,113 @@ else:
             if "pro_audio_bytes" in st.session_state:
                 del st.session_state.pro_audio_bytes
 
+    # ══════════════════════════════════════════════════════════════════
+    # STRUCTURATION SQL
+    # ══════════════════════════════════════════════════════════════════
+    
+    if _btn_sql_direct:
+        if len(selected) == 0:
+            st.warning("Sélectionne au moins un meeting")
+        elif not MODEL:
+            st.error("Modèle Gemini non configuré.")
+        else:
+            _sql_selected_indices = [int(i.split(" - ")[0]) for i in selected]
 
+            _sql_check = utils_sql.check_connection()
+            if not _sql_check["ok"]:
+                st.error(f"❌ Impossible de joindre SQL Server : {_sql_check['message']}")
+                st.stop()
 
-    # Display results if available
+            with st.spinner("🧠 Étape 1/2 — Gemini structure les données depuis la transcription..."):
+                try:
+                    _structured_all = []
+                    for _idx in _sql_selected_indices:
+                        _m = meetings[_idx]
+                        _src_id = _m.get("meeting_id", str(_idx))
+                        if utils_sql.meeting_already_inserted(_src_id):
+                            st.warning(f"⏭️ '{_m.get('title','?')}' déjà présent en base — ignoré.")
+                            continue
+                        _transcript = _m.get("transcript_clean", _m.get("transcript", ""))
+                        _structured = utils_ai_structurer.structure_transcript_for_sql(
+                            transcript=_transcript,
+                            report_text=_transcript,
+                            kpis=None,
+                            model=MODEL,
+                            meeting_title=_m.get("title", "Réunion")
+                        )
+                        _valid, _errs = utils_ai_structurer.validate_structured_data(_structured)
+                        if not _valid:
+                            st.warning(f"⚠️ Données partiellement invalides pour '{_m.get('title','?')}' : {_errs}")
+                        _structured_all.append((_idx, _src_id, _m, _structured))
+
+                    st.session_state.sql_structured_data = _structured_all
+                except Exception as _e:
+                    st.error(f"❌ Erreur lors de la structuration IA : {_e}")
+                    st.stop()
+
+            if st.session_state.get("sql_structured_data"):
+                with st.spinner("🗄️ Étape 2/2 — Insertion dans SQL Server..."):
+                    try:
+                        _all_stats = []
+                        for (_idx, _src_id, _m, _structured) in st.session_state.sql_structured_data:
+                            _raw_segs = _m.get("segments_clean", _m.get("segments", []))
+                            _stats = utils_sql.insert_meeting_full(
+                                structured=_structured,
+                                source_meeting_id=_src_id,
+                                raw_segments=_raw_segs
+                            )
+                            _all_stats.append((_m.get("title", "?"), _stats))
+                        st.session_state.sql_insert_stats = _all_stats
+                    except Exception as _e:
+                        st.error(f"❌ Erreur SQL lors de l'insertion : {_e}")
+                        st.stop()
+
+            st.rerun()
+
+    # Affichage des résultats SQL
+    if "sql_insert_stats" in st.session_state:
+        for _title, _stats in st.session_state.sql_insert_stats:
+            _total_rows = sum(v for k, v in _stats.items() if k not in ["meeting_id_sql", "success"])
+            st.markdown(f"""
+            <div class="status-success">
+                <div class="status-success-title">✅ Synchronisé avec SQL Server — {_title}</div>
+                <div class="status-success-text">
+                    meeting_id SQL : <strong>#{_stats.get('meeting_id_sql')}</strong> ·
+                    {_stats.get('segments',0)} segments ·
+                    {_stats.get('topics',0)} topics ·
+                    {_stats.get('decisions',0)} décisions ·
+                    {_stats.get('actions',0)} actions ·
+                    1 rapport
+                    <span style="color:#64748B;">({_total_rows} lignes insérées)</span>
+                </div>
+                <div style="margin-top:0.5rem; font-size:0.78rem; color:#64748B;">
+                    Power BI peut actualiser son dataset pour voir les nouvelles données.
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    if "sql_structured_data" in st.session_state and st.session_state.sql_structured_data:
+        with st.expander("🔍 Aperçu des données structurées par l'IA (JSON)", expanded=False):
+            for (_idx, _src_id, _m, _structured) in st.session_state.sql_structured_data:
+                st.caption(f"Meeting : {_m.get('title','?')} — source_meeting_id : {_src_id}")
+                st.json(_structured)
+
+    if "sql_insert_stats" in st.session_state or "sql_structured_data" in st.session_state:
+        if st.button("🗑️ Effacer les résultats SQL", key="btn_sql_reset"):
+            for _k in ["sql_structured_data", "sql_insert_stats"]:
+                st.session_state.pop(_k, None)
+            st.rerun()
+
+    # ══════════════════════════════════════════════════════════════════
+    # AFFICHAGE DU RAPPORT
+    # ══════════════════════════════════════════════════════════════════
+    
     if "improvement_report" in st.session_state and st.session_state.improvement_report:
         
+        st.markdown("---")
         st.markdown("### 📝 Option : Compte Rendu Formel")
         st.caption("Générez un document formel (Minutes) basé sur l'analyse stratégique.")
+        
         if st.button("📝 Générer le Compte Rendu Pro (Formel)", use_container_width=True, key="btn_gen_pro_re_fixed", type="primary"):
             report_text = st.session_state.improvement_report
             with st.spinner("Rédaction en cours..."):
@@ -1007,7 +1535,6 @@ else:
                 except Exception as e:
                     st.error(f"❌ Erreur : {e}")
         
-        # Immediate display of controls if report exists
         if "pro_report" in st.session_state:
             st.markdown("---")
             st.markdown("### 📝 Édition & Téléchargement")
@@ -1045,47 +1572,10 @@ else:
         
         st.markdown("---")
         
-        # Display KPIs Dashboard if available
-        if "kpis" in st.session_state and st.session_state.kpis:
-            kpis = st.session_state.kpis
-
-            st.header("🎯 Tableau de Bord de Performance")
-            st.caption("KPIs extraits par l'IA depuis l'analyse de la réunion")
-
-            # Top row KPI cards
-            pain_colors = {"Forte": "#EF4444", "Moyenne": "#F59E0B", "Faible": "#10B981"}
-            listen_val = kpis.get('listen_ratio_client', 0)
-            listen_color = "#10B981" if listen_val >= 50 else ("#F59E0B" if listen_val >= 30 else "#EF4444")
-            score_val = kpis.get('global_score', 0)
-            score_color = "#10B981" if score_val >= 70 else ("#F59E0B" if score_val >= 45 else "#EF4444")
-            pain_color = pain_colors.get(kpis.get('pain_intensity', ''), "#8B5CF6")
-
-            k1, k2, k3 = st.columns(3)
-            with k1:
-                st.metric("Score Global", f"{score_val}/100")
-            with k2:
-                st.metric("Douleur Client", kpis.get('pain_intensity', 'N/A'))
-            with k3:
-                st.metric("Ratio Écoute", f"{listen_val}%")
-
-            st.markdown("<div style='margin-top:1.5rem;'></div>", unsafe_allow_html=True)
-
-            # Phase Alignment — custom colored bars
-            phases = kpis.get("phases_alignment", {})
-            if phases:
-                st.subheader("Alignement des Phases (1–5)")
-                for phase, score in phases.items():
-                    st.write(f"**{phase}** : {score}/5")
-                    st.progress(int(score) / 5.0)
-
-            st.markdown("---")
-
         st.text_area("Rapport d'amélioration", st.session_state.improvement_report, height=450)
         
-        # PDF Download only
         try:
             import utils_pdf
-            # Append KPIs to PDF text for completeness
             pdf_text = st.session_state.improvement_report
             if "kpis" in st.session_state and st.session_state.kpis:
                  k = st.session_state.kpis
@@ -1103,7 +1593,7 @@ else:
 
         st.markdown("---")
 
-    # Follow-up Email section below
+    # Email de suivi
     if "improvement_report" in st.session_state and st.session_state.improvement_report:
         st.caption("Générez un email de suivi prêt à envoyer, basé sur l'analyse de ce meeting.")
         
@@ -1127,15 +1617,12 @@ else:
 
         st.markdown("---")
 
-        # ⚠️ Objection Extractor
+        # Analyse des objections
         st.markdown("### ⚠️ Analyse des Blocages & Objections (Beta)")
         st.caption("Détection automatique des freins clients et suggestions de réponses.")
 
         if st.button("🔍 Analyser les Objections", type="primary"):
             with st.spinner("Analyse approfondie des objections..."):
-                # Reconstruct full transcript from selected meetings used for report
-                # Note: improvement_report uses 'transcripts' list which isn't stored in session_state, 
-                # but we stored 'selected_indices'.
                 if "selected_indices" in st.session_state:
                     try:
                         full_transcript = ""
@@ -1158,6 +1645,3 @@ else:
                 st.success(f"Réponse : {obj.get('reponse')}")
         elif "objections" in st.session_state:
             st.success("✅ Aucune objection majeure détectée par l'IA.")
-
-
-

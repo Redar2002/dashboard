@@ -18,6 +18,8 @@ HIGH_QUOTA_DEFAULT = "models/gemini-flash-latest"
 
 ALLOWED_MODELS = [
     "models/gemini-flash-latest",     # Seul modèle fonctionnel confirmé
+    "models/gemini-2.0-flash",       # Modèle stable 2.0
+    "models/gemini-2.0-flash-lite",  # Modèle lite idéal pour batch
 ]
 
 
@@ -28,7 +30,7 @@ def _resolve_model_name(model_name):
         for allowed in ALLOWED_MODELS:
             if clean_name in allowed:
                 return allowed
-        print(f"[config] Modèle '{model_name}' inconnu → fallback vers {HIGH_QUOTA_DEFAULT}")
+        print(f"[config] Modele '{model_name}' inconnu -> fallback vers {HIGH_QUOTA_DEFAULT}")
         return HIGH_QUOTA_DEFAULT
     return model_name
 
@@ -101,9 +103,22 @@ def generate_with_retry(model_name: str, content, generation_config=None, safety
     Supporte les erreurs de quota (429), les erreurs serveur et les absences de modèle.
     """
     import time
-    import streamlit as st
     from google.api_core.exceptions import ResourceExhausted, InternalServerError, ServiceUnavailable, DeadlineExceeded
     
+    # Helper pour notifier en Streamlit OU en Console
+    def notify(msg, type="info"):
+        try:
+            import streamlit as st
+            # Vérifie si on est dans un contexte Streamlit actif
+            if st.runtime.exists():
+                if type == "warning": st.warning(msg)
+                elif type == "error": st.error(msg)
+                else: st.info(msg)
+            else:
+                print(f"[{type.upper()}] {msg}")
+        except:
+            print(f"[{type.upper()}] {msg}")
+
     # Configuration par défaut si non fournie
     if generation_config is None:
         generation_config = {"temperature": 0.3}
@@ -141,29 +156,29 @@ def generate_with_retry(model_name: str, content, generation_config=None, safety
                 
             except ResourceExhausted as e:
                 last_exception = e
-                st.warning(f"⚠️ Quota 429 ({current_model_name}). Pause de {wait_time}s... (Tentative {attempt+1}/{max_retries})")
+                notify(f"Quota 429 ({current_model_name}). Pause de {wait_time}s... (Tentative {attempt+1}/{max_retries})", "warning")
                 time.sleep(wait_time)
                 wait_time *= 2 # Backoff exponentiel
                 
             except (InternalServerError, ServiceUnavailable, DeadlineExceeded) as e:
                 last_exception = e
-                st.warning(f"⚠️ Erreur serveur {type(e).__name__}. Nouvel essai dans 5s... (Tentative {attempt+1}/{max_retries})")
+                notify(f"Erreur serveur {type(e).__name__}. Nouvel essai dans 5s... (Tentative {attempt+1}/{max_retries})", "warning")
                 time.sleep(5)
                 
             except Exception as e:
                 # Si c'est un problème de "model not found" (404), on change de modèle immédiatement
                 if "404" in str(e) or "not found" in str(e).lower():
-                    st.warning(f"⚠️ Modèle {current_model_name} introuvable (404).")
+                    notify(f"Modèle {current_model_name} introuvable (404).", "warning")
                     break # On tente le modèle suivant
 
                 if "safety" in str(e).lower():
-                    st.error(f"❌ Blocage Safety sur {current_model_name} : {e}")
+                    notify(f"Blocage Safety sur {current_model_name} : {e}", "error")
                     raise e
                 
-                st.warning(f"⚠️ Erreur sur {current_model_name} : {e}. Rotation...")
+                notify(f"Erreur sur {current_model_name} : {e}. Rotation...", "warning")
                 break # On change de modèle
                 
         if current_model_name != unique_models[-1]:
-            st.info(f"🔄 Saturation détectée sur {current_model_name}. Essai du modèle suivant...")
+            notify(f"Saturation détectée sur {current_model_name}. Essai du modèle suivant...")
 
     raise last_exception if last_exception else Exception("Échec total après retries et rotation.")
