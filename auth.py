@@ -196,6 +196,20 @@ def login_user(
     if not email or not password:
         return {"ok": False, "user": None, "message": "Email et mot de passe requis."}
 
+    # --- FALLBACK ADMINISTRATEUR POUR STREAMLIT CLOUD (Sans SQL Server local) ---
+    env_admin_email = os.getenv("ADMIN_EMAIL", "admin@inspirigence.ma")
+    env_admin_password = os.getenv("ADMIN_PASSWORD", "admin123")
+    
+    if email.lower().strip() == env_admin_email.lower().strip():
+        if password == env_admin_password:
+            safe_user = {
+                "user_id": 9999,
+                "email": env_admin_email,
+                "full_name": "Administrateur Cloud",
+                "role": "admin",
+            }
+            return {"ok": True, "user": safe_user, "message": f"Bienvenue, {safe_user['full_name']} !"}
+
     user = get_user_by_email(email, server=server, database=database)
 
     if user is None:
