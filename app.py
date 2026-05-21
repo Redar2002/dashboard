@@ -1061,32 +1061,15 @@ with st.sidebar:
     
     st.markdown('<div class="sidebar-section-title">CONFIGURATION</div>', unsafe_allow_html=True)
     
-    # Model Selection
+    # Model Selection (Simplified)
     QUOTA_LABELS = {
-        "models/gemini-2.0-flash":      "gemini-2.0-flash      ✅ RECOMMANDÉ",
         "models/gemini-flash-latest":   "gemini-flash-latest   ⚡ Switch si 429",
-        "models/gemini-pro-latest":     "gemini-pro-latest     🔬 Switch si 429",
-        "models/gemini-2.5-flash":      "gemini-2.5-flash      ⚠️ QUOTA LIMITÉ",
     }
     
-    try:
-        available_models = config.list_available_models()
-        if not available_models:
-            available_models = ["models/gemini-flash-latest"]
-
-        default_idx = 0
-        for i, m in enumerate(available_models):
-            if "flash-lite" in m.lower():
-                default_idx = i
-                break
-
-        labels = [QUOTA_LABELS.get(m, m) for m in available_models]
-        selected_label = st.selectbox("🤖 Choisir le modèle", labels, index=default_idx)
-        selected_model = available_models[labels.index(selected_label)]
-
-    except Exception as e:
-        st.error(f"Erreur chargement modèles: {e}")
-        selected_model = "models/gemini-2.0-flash-lite"
+    selected_model = "models/gemini-flash-latest"
+    selected_label = QUOTA_LABELS[selected_model]
+    
+    st.info(f"🤖 Modèle: {selected_label}")
 
     # Initialize Model
     try:

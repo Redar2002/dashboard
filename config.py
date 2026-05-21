@@ -17,9 +17,7 @@ load_dotenv()
 HIGH_QUOTA_DEFAULT = "models/gemini-flash-latest" 
 
 ALLOWED_MODELS = [
-    "models/gemini-flash-latest",     # Seul modèle fonctionnel confirmé
-    "models/gemini-2.0-flash",       # Modèle stable 2.0
-    "models/gemini-2.0-flash-lite",  # Modèle lite idéal pour batch
+    "models/gemini-flash-latest",     # Seul modèle fonctionnel confirmé pour le Free Tier
 ]
 
 
@@ -125,19 +123,9 @@ def generate_with_retry(model_name: str, content, generation_config=None, safety
     if request_options is None:
         request_options = {"timeout": 600}
         
-    # Liste de repli basée sur les modèles réellement disponibles (diag_models.py)
-    models_to_try = [
-        model_name,
-        "models/gemini-flash-latest",      # Backup stable #1
-        "models/gemini-2.0-flash-lite",    # Backup stable #2 (lite)
-        "models/gemini-pro-latest",         # Backup stable #3
-    ]
+    # Modèle cible unique (Robustesse Free Tier)
+    unique_models = ["models/gemini-flash-latest"]
     
-    # Élimine les doublons tout en gardant l'ordre
-    unique_models = []
-    for m in models_to_try:
-        if m not in unique_models: unique_models.append(m)
-        
     last_exception = None
     
     for current_model_name in unique_models:
