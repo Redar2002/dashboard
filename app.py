@@ -147,6 +147,25 @@ st.markdown("""
         line-height: 1.6;
     }
     
+    @media (max-width: 768px) {
+        .feature-grid {
+            grid-template-columns: 1fr !important;
+            justify-items: center !important;
+        }
+        .feature-card {
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            width: 100% !important;
+            max-width: 350px !important;
+            margin: 0 auto !important;
+        }
+        .feature-icon {
+            margin: 0 auto 1rem auto !important;
+        }
+    }
+    
     /* ─────────────────────────────────────────────────────────────────── */
     /* SECTION CARDS */
     /* ─────────────────────────────────────────────────────────────────── */
