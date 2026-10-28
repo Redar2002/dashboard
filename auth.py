@@ -5,6 +5,7 @@ Sécurité : bcrypt pour le hachage des mots de passe
 Connexion : Windows Authentication via utils_sql.get_sql_connection()
 """
 import bcrypt
+import hmac
 from datetime import datetime
 import sys
 import os
@@ -197,11 +198,12 @@ def login_user(
         return {"ok": False, "user": None, "message": "Email et mot de passe requis."}
 
     # --- FALLBACK ADMINISTRATEUR POUR STREAMLIT CLOUD (Sans SQL Server local) ---
-    env_admin_email = os.getenv("ADMIN_EMAIL", "admin@inspirigence.ma")
-    env_admin_password = os.getenv("ADMIN_PASSWORD", "admin123")
-    
-    if email.lower().strip() == env_admin_email.lower().strip():
-        if password == env_admin_password:
+    # Actif uniquement si ADMIN_EMAIL et ADMIN_PASSWORD sont définis (.env ou secrets Streamlit).
+    env_admin_email = os.getenv("ADMIN_EMAIL", "")
+    env_admin_password = os.getenv("ADMIN_PASSWORD", "")
+
+    if env_admin_email and env_admin_password and email.lower().strip() == env_admin_email.lower().strip():
+        if hmac.compare_digest(password.encode("utf-8"), env_admin_password.encode("utf-8")):
             safe_user = {
                 "user_id": 9999,
                 "email": env_admin_email,

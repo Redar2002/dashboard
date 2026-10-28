@@ -1287,17 +1287,23 @@ if st.button("🚀 Lancer la Transcription", use_container_width=True, type="pri
                 from datetime import datetime
                 import utils_transcription
                 
-                os.makedirs("tmp", exist_ok=True)
-                tmp_filepath = os.path.join("tmp", f"upload_{int(time.time())}_{uploaded_file.name}")
-                
-                with open(tmp_filepath, "wb") as f:
+                import tempfile
+
+                # Fichier temporaire système, supprimé même en cas d'erreur
+                suffix = os.path.splitext(uploaded_file.name)[1] or ".mp3"
+                with tempfile.NamedTemporaryFile(prefix="upload_", suffix=suffix, delete=False) as f:
                     f.write(uploaded_file.getbuffer())
-                    
-                transcription_text, transcription_clean = utils_transcription.transcribe_and_clean_audio(
-                    filepath=tmp_filepath, 
-                    model=MODEL, 
-                    lang_choice=lang_choice
-                )
+                    tmp_filepath = f.name
+
+                try:
+                    transcription_text, transcription_clean = utils_transcription.transcribe_and_clean_audio(
+                        filepath=tmp_filepath,
+                        model=MODEL,
+                        lang_choice=lang_choice
+                    )
+                finally:
+                    if os.path.exists(tmp_filepath):
+                        os.remove(tmp_filepath)
                 
                 segments, pure_text = utils_transcription.parse_transcript_to_segments(transcription_text)
                 segments_clean, pure_text_clean = utils_transcription.parse_transcript_to_segments(transcription_clean)
@@ -1313,7 +1319,6 @@ if st.button("🚀 Lancer la Transcription", use_container_width=True, type="pri
                 }
                 
                 st.session_state["transcription_finished"] = True
-                os.remove(tmp_filepath)
                 
             except Exception as e:
                 st.error(f"❌ Erreur lors de la transcription : {e}")

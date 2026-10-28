@@ -258,11 +258,15 @@ def transcribe_and_clean_audio(filepath: str, model, lang_choice: str = "França
         ]
         subprocess.run(ffmpeg_cmd, capture_output=True)
         
-        # Upload
-        gemini_file = genai.upload_file(path=temp_chunk_path)
-        while gemini_file.state.name == 'PROCESSING':
-            time.sleep(3)
-            gemini_file = genai.get_file(gemini_file.name)
+        # Upload (le chunk local est supprimé si l'upload échoue)
+        try:
+            gemini_file = genai.upload_file(path=temp_chunk_path)
+            while gemini_file.state.name == 'PROCESSING':
+                time.sleep(3)
+                gemini_file = genai.get_file(gemini_file.name)
+        except Exception:
+            if os.path.exists(temp_chunk_path): os.remove(temp_chunk_path)
+            raise
             
         # Transcription
         transcription_prompt = _build_transcription_prompt(lang_instruction)
