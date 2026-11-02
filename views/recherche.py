@@ -12,6 +12,7 @@ ui.page_header(
     "Recherche",
     "Posez une question en langage naturel : l'IA retrouve les passages pertinents dans vos réunions.",
     eyebrow="Meeting Intelligence",
+    index="(02)",
 )
 
 meetings = utils_data.load_meetings()
@@ -20,7 +21,7 @@ if not meetings:
     ui.empty_state("Aucune réunion disponible", "Enregistrez d'abord une réunion depuis la page Réunions.")
     st.stop()
 
-with st.container(border=True):
+with st.container():
     labels = [
         f"{i} — {m.get('title', m.get('filename', 'Sans titre'))}"
         for i, m in enumerate(meetings)
@@ -54,7 +55,7 @@ if search_button:
 
 search_results = st.session_state.get("search_results")
 if search_results:
-    with st.container(border=True):
+    with st.container():
         ui.section_header("Réponse")
         st.write(search_results.get("summary", "Aucun résumé disponible."))
 
@@ -73,3 +74,5 @@ if search_results:
             "Aucun passage pertinent",
             "Reformulez la question ou sélectionnez d'autres réunions.",
         )
+
+ui.footer()

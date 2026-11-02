@@ -1,21 +1,22 @@
 [theme]
 base = "light"
-primaryColor = "#6D28D9"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F8FAFC"
-textColor = "#0F172A"
-linkColor = "#6D28D9"
-borderColor = "#E2E8F0"
+primaryColor = "#0A0A0A"
+backgroundColor = "#F5F3EF"
+secondaryBackgroundColor = "#EAE7E1"
+textColor = "#0A0A0A"
+linkColor = "#0A0A0A"
+borderColor = "#D9D5CE"
 showWidgetBorder = true
-baseRadius = "8px"
+baseRadius = "4px"
+buttonRadius = "full"
 baseFontSize = 15
-font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-headingFont = "Inter"
+font = "Satoshi:https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
+headingFont = "Satoshi"
 
 [theme.sidebar]
-backgroundColor = "#F8FAFC"
-secondaryBackgroundColor = "#FFFFFF"
-borderColor = "#E2E8F0"
+backgroundColor = "#EAE7E1"
+secondaryBackgroundColor = "#F5F3EF"
+borderColor = "#D9D5CE"
 
 [client]
 toolbarMode = "minimal"

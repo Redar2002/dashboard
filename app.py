@@ -9,7 +9,7 @@ st.set_page_config(
     page_title="Meeting Intelligence",
     page_icon=":material/graphic_eq:",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 import ui
@@ -37,7 +37,7 @@ page = st.navigation({
 with st.sidebar:
     model, model_error = get_model()
     if model:
-        ui.status_line(f"Gemini · {model_label(model)}")
+        ui.status_line(f"Gemini {model_label(model).replace('gemini-', '')}")
     else:
         st.error(f"Gemini non configuré : {model_error}", icon=":material/error:")
 
