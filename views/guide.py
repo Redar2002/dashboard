@@ -13,7 +13,6 @@ ui.page_header(
     "Guide explicatif",
     "Générez un guide détaillé sur un produit, un service ou un concept abordé dans vos réunions.",
     eyebrow="Meeting Intelligence",
-    index="(03)",
 )
 
 meetings = utils_data.load_meetings()
@@ -22,7 +21,7 @@ if not meetings:
     ui.empty_state("Aucune réunion disponible", "Enregistrez d'abord une réunion depuis la page Réunions.")
     st.stop()
 
-with st.container():
+with st.container(border=True):
     labels = [
         f"{i} — {m.get('title', m.get('filename', 'Sans titre'))}"
         for i, m in enumerate(meetings)
@@ -56,7 +55,7 @@ if generate_button:
                 st.error(f"Erreur : {e}")
 
 if st.session_state.get("topic_explanation"):
-    with st.container():
+    with st.container(border=True):
         st.markdown(st.session_state.topic_explanation)
 
     file_base = f"guide_{st.session_state.topic_name.replace(' ', '_')}"
@@ -81,5 +80,3 @@ if st.session_state.get("topic_explanation"):
             key="download_topic_md",
             width="stretch",
         )
-
-ui.footer()

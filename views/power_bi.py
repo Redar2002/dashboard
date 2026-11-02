@@ -11,7 +11,6 @@ ui.page_header(
     "Power BI",
     "Tableau de bord commercial alimenté par les données SQL Server.",
     eyebrow="Reporting",
-    index="(04)",
 )
 
 st.markdown(
@@ -24,5 +23,3 @@ st.caption(
     "vérifiez que votre compte Microsoft a accès au tenant 993f3397-d964-4599-8045-90049af66354."
 )
 st.link_button("Ouvrir dans Power BI", REPORT_URL, icon=":material/open_in_new:")
-
-ui.footer()

@@ -37,35 +37,25 @@ meetings = load_meetings()
 # EN-TÊTE + INDICATEURS
 # ═══════════════════════════════════════════════════════════════════════════
 
-ui.hero(
-    "Vos réunions,",
-    ["deviennent des décisions.", "révèlent vos clients.", "accélèrent vos ventes."],
-    "Transcription, analyse stratégique et reporting commercial : chaque échange devient une donnée exploitable.",
-    label="Meeting Intelligence — Inspirigence",
-    index="(01)",
+ui.page_header(
+    "Réunions",
+    "Transcrivez vos réunions, puis générez rapports, comptes rendus et analyses avec Gemini.",
+    eyebrow="Meeting Intelligence",
 )
 
 dates = [d for d in (_meeting_date(m) for m in meetings) if d]
 words = sum(len(m.get("transcript", "").split()) for m in meetings)
 
 k1, k2, k3 = st.columns(3)
-k1.metric("Réunions enregistrées", len(meetings))
-k2.metric("Mots transcrits", f"{words:,}".replace(",", " "))
-k3.metric("Dernière réunion", max(dates).strftime("%d.%m.%y") if dates else "—")
-
-ui.marquee(["Transcription", "Analyse stratégique", "MEDDIC", "Objections", "Comptes rendus", "Power BI"])
-
-if meetings:
-    ui.section_header("Réunions récentes", count=len(meetings), number="02")
-    ui.editorial_rows([
-        (
-            f"{i + 1:02d}",
-            (m.get("filename") or "Réunion").rsplit(".", 1)[0][:40],
-            m.get("title", "Sans titre"),
-            _meeting_date(m).strftime("%d.%m.%Y") if _meeting_date(m) else "—",
-        )
-        for i, m in enumerate(meetings[:5])
-    ])
+with k1:
+    with st.container(border=True):
+        st.metric("Réunions enregistrées", len(meetings))
+with k2:
+    with st.container(border=True):
+        st.metric("Mots transcrits", f"{words:,}".replace(",", " "))
+with k3:
+    with st.container(border=True):
+        st.metric("Dernière réunion", max(dates).strftime("%d/%m/%Y") if dates else "—")
 
 if MODEL is None:
     st.error(f"Modèle Gemini non configuré : {_model_error}", icon=":material/error:")
@@ -77,11 +67,10 @@ tab_new, tab_analyse, tab_audit = st.tabs(["Nouvelle réunion", "Analyse", "Audi
 # ═══════════════════════════════════════════════════════════════════════════
 
 with tab_new:
-    with st.container():
+    with st.container(border=True):
         ui.section_header(
             "Importer un enregistrement",
             "Audio ou vidéo : la transcription et le nettoyage sont faits automatiquement.",
-            number="03",
         )
         uploaded_file = st.file_uploader(
             "Fichier (MP3, WAV, M4A, AAC, MP4, MOV, AVI)",
@@ -171,12 +160,11 @@ with tab_analyse:
     if not meetings:
         ui.empty_state("Aucune réunion enregistrée", "Importez un enregistrement dans l'onglet « Nouvelle réunion ».")
     else:
-        with st.container():
+        with st.container(border=True):
             ui.section_header(
                 "Réunions enregistrées",
                 "Sélectionnez une ou plusieurs réunions à analyser.",
                 count=len(meetings),
-                number="03",
             )
             labels = [
                 f"{i} - {m.get('title', m.get('filename', 'Sans titre'))}"
@@ -301,8 +289,8 @@ with tab_analyse:
 
         # ── Rapport ────────────────────────────────────────────────────────
         if st.session_state.get("improvement_report"):
-            with st.container():
-                ui.section_header("Rapport d'amélioration", number="04")
+            with st.container(border=True):
+                ui.section_header("Rapport d'amélioration")
                 kpis = st.session_state.get("kpis") or {}
                 if kpis.get("global_score") is not None:
                     st.metric("Score global", f"{kpis.get('global_score')}/100")
@@ -324,8 +312,8 @@ with tab_analyse:
                     st.error(f"Erreur PDF : {e}")
 
             # ── Compte rendu formel ────────────────────────────────────────
-            with st.container():
-                ui.section_header("Compte rendu formel", "Document de type « minutes » rédigé à partir de l'analyse.", number="05")
+            with st.container(border=True):
+                ui.section_header("Compte rendu formel", "Document de type « minutes » rédigé à partir de l'analyse.")
 
                 if st.button("Générer le compte rendu", icon=":material/description:", width="stretch", key="btn_gen_pro_re_fixed", type="primary"):
                     with st.spinner("Rédaction en cours…"):
@@ -374,8 +362,8 @@ with tab_analyse:
                         st.audio(st.session_state.pro_audio_bytes, format="audio/mp3")
 
             # ── Email de suivi ─────────────────────────────────────────────
-            with st.container():
-                ui.section_header("Email de suivi", "Brouillon prêt à envoyer, basé sur l'analyse.", number="06")
+            with st.container(border=True):
+                ui.section_header("Email de suivi", "Brouillon prêt à envoyer, basé sur l'analyse.")
 
                 if st.button("Rédiger l'email", icon=":material/mail:", type="primary"):
                     with st.spinner("Rédaction de l'email…"):
@@ -395,8 +383,8 @@ with tab_analyse:
                     st.caption("Conseil : personnalisez la première phrase avant d'envoyer.")
 
             # ── Objections ─────────────────────────────────────────────────
-            with st.container():
-                ui.section_header("Objections et blocages", "Détection des freins du client et réponses suggérées.", number="07")
+            with st.container(border=True):
+                ui.section_header("Objections et blocages", "Détection des freins du client et réponses suggérées.")
 
                 if st.button("Analyser les objections", icon=":material/report:", type="primary"):
                     with st.spinner("Analyse des objections…"):
@@ -426,11 +414,10 @@ with tab_analyse:
 # ═══════════════════════════════════════════════════════════════════════════
 
 with tab_audit:
-    with st.container():
+    with st.container(border=True):
         ui.section_header(
             "Audit stratégique global",
             f"Synthèse consolidée de l'ensemble des réunions ({len(meetings)}).",
-            number="03",
         )
         if st.button("Générer l'audit global", icon=":material/monitoring:", type="primary", disabled=not (MODEL and meetings)):
             with st.spinner(f"Analyse de {len(meetings)} réunions…"):
@@ -468,5 +455,3 @@ with tab_audit:
                 for _k in ("global_audit", "global_kpis", "global_pdf_bytes"):
                     st.session_state.pop(_k, None)
                 st.rerun()
-
-ui.footer()

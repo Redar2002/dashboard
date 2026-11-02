@@ -16,7 +16,7 @@ _SESSION_LOGGEDIN = "_auth_logged_in"
 _LOGIN_CSS = """
 <style>
 [data-testid="stSidebar"], [data-testid="stSidebarCollapsedControl"] { display: none; }
-.block-container { max-width: 520px; }
+.block-container { max-width: 440px; }
 </style>
 """
 
@@ -53,16 +53,17 @@ def login_page():
     st.markdown(_LOGIN_CSS, unsafe_allow_html=True)
 
     st.markdown('<div class="mi-login-head"></div>', unsafe_allow_html=True)
-    st.image(ui.LOGO_PATH, width=150)
+    _, logo_col, _ = st.columns([1, 2, 1])
+    with logo_col:
+        st.image(ui.LOGO_PATH, width="stretch")
     st.markdown(
-        '<div class="mi-page-header" style="margin-top:1.5rem;">'
-        '<div class="mi-label"><span>Meeting Intelligence</span><span>Accès sécurisé</span></div>'
-        '<div class="mi-login-title">Bon retour.</div>'
-        '<div class="mi-login-subtitle">Connectez-vous pour accéder à vos réunions et analyses.</div></div>',
+        '<div style="text-align:center;margin-bottom:1.5rem;">'
+        '<div class="mi-login-title">Connexion</div>'
+        '<div class="mi-login-subtitle">Accédez à votre espace Meeting Intelligence.</div></div>',
         unsafe_allow_html=True,
     )
 
-    with st.form("login_form", clear_on_submit=False, border=False):
+    with st.form("login_form", clear_on_submit=False):
         email = st.text_input("Adresse email", placeholder="prenom.nom@inspirigence.ma", key="login_email_field")
         password = st.text_input("Mot de passe", type="password", key="login_password_field")
         submitted = st.form_submit_button("Se connecter", type="primary", width="stretch")
@@ -83,10 +84,7 @@ def login_page():
                 st.session_state[_SESSION_USER_KEY] = result["user"]
                 st.rerun()
 
-    st.markdown(
-        '<div class="mi-login-foot mi-label"><span>© Inspirigence Group</span><span>Gemini · Power BI</span></div>',
-        unsafe_allow_html=True,
-    )
+    st.markdown('<div class="mi-login-foot">© Inspirigence Group · Meeting Intelligence</div>', unsafe_allow_html=True)
 
 
 def require_auth() -> dict:

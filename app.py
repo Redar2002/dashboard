@@ -37,7 +37,7 @@ page = st.navigation({
 with st.sidebar:
     model, model_error = get_model()
     if model:
-        ui.status_line(f"Gemini {model_label(model).replace('gemini-', '')}")
+        ui.status_line(f"Gemini · {model_label(model)}")
     else:
         st.error(f"Gemini non configuré : {model_error}", icon=":material/error:")
 
