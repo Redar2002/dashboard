@@ -1,5 +1,4 @@
 from fpdf import FPDF
-import io
 import time
 
 class PDF(FPDF):
@@ -43,7 +42,7 @@ class PDF(FPDF):
         self.line(10, self.get_y(), 200, self.get_y())
         
         # Content
-        self.cell(0, 10, f'Inspirigence Groupe - Document Confidentiel', 0, 0, 'L')
+        self.cell(0, 10, 'Inspirigence Groupe - Document Confidentiel', 0, 0, 'L')
         self.cell(0, 10, f'Page {self.page_no()} sur {{nb}}', 0, 0, 'R')
 
 def create_pdf(text, title=None):

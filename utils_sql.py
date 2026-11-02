@@ -3,7 +3,6 @@ utils_sql.py — Connexion et insertions SQL Server pour Meeting Intelligence
 Windows Authentication · ODBC Driver 17 for SQL Server
 """
 import pyodbc
-import streamlit as st
 from datetime import date
 
 

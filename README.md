@@ -4,7 +4,7 @@ Application Streamlit qui transcrit des réunions audio avec Gemini, puis génè
 
 ## Prérequis
 
-- Python 3.10+
+- Python 3.10 ou plus récent
 - Une clé API Gemini ([Google AI Studio](https://aistudio.google.com/app/apikey))
 - Optionnel : SQL Server + ODBC Driver 17/18 pour les comptes utilisateurs (Windows Authentication)
 
@@ -21,14 +21,14 @@ python -m venv venv
 Activer l'environnement virtuel :
 
 ```bash
-# Windows
-venv\Scripts\activate
+# Windows (PowerShell)
+.\venv\Scripts\Activate.ps1
 # Linux / macOS
 source venv/bin/activate
 ```
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 ## Configuration
@@ -43,16 +43,48 @@ Copier `.env.example` en `.env` (`copy .env.example .env` sous Windows), puis re
 Avec SQL Server, créer un administrateur en base :
 
 ```bash
-python create_admin.py
+python scripts/create_admin.py
 ```
 
 ## Lancement
 
 ```bash
-streamlit run app.py
+python -m streamlit run app.py
 ```
 
 L'application s'ouvre sur http://localhost:8501.
+
+## Structure
+
+```
+app.py              Point d'entrée : thème, connexion, navigation, barre latérale
+views/              Pages : réunions (accueil), recherche, guide explicatif, Power BI
+services/           Logique IA (analyse.py) et modèle Gemini partagé (modele.py)
+ui/                 Thème (theme.css) et composants visuels réutilisables
+utils_*.py, auth.py Transcription, PDF, SQL Server, authentification
+scripts/            Outils en ligne de commande (create_admin, populate_sql…)
+powerbi/            Fichier Power BI (.pbix) et thème
+docs/               Rapports et documentation du projet
+tests/              Tests automatiques (pytest)
+```
+
+Les couleurs et la police sont dans `.streamlit/config.toml`, les styles complémentaires dans `ui/theme.css`.
+
+## Tests
+
+```bash
+python -m pip install -r requirements-dev.txt
+```
+
+```bash
+python -m pytest
+```
+
+```bash
+ruff check .
+```
+
+Ces vérifications tournent aussi automatiquement sur GitHub à chaque push (`.github/workflows/ci.yml`).
 
 ## Déploiement Streamlit Cloud
 

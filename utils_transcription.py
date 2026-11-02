@@ -17,10 +17,8 @@ Usage:
 
 import time
 import os
-import random
 import streamlit as st
 import google.generativeai as genai
-from google.api_core.exceptions import ResourceExhausted, InternalServerError, ServiceUnavailable, DeadlineExceeded
 
 # Utilisation de ffmpeg via imageio_ffmpeg
 import subprocess

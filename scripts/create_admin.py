@@ -3,8 +3,10 @@ create_admin.py -- Script CLI pour creer le premier administrateur
 Base de donnees : SQL Server - MeetingIntelligence
 
 Usage :
-    python create_admin.py
+    python scripts/create_admin.py
 """
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))  # racine du projet
 import getpass
 import sys
 import auth

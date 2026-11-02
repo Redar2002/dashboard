@@ -1,7 +1,7 @@
 import os
 import json
 
-DATA_FILE = "meetings.json"
+DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "meetings.json")
 
 def load_meetings():
     if not os.path.exists(DATA_FILE):

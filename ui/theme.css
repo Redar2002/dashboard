@@ -1,0 +1,239 @@
+/* Meeting Intelligence — thème unique de l'application.
+   Les couleurs de base (primaire, fonds, bordures, police) sont dans .streamlit/config.toml ;
+   ce fichier ne fait qu'affiner la mise en page et les composants maison. */
+
+:root {
+    --mi-brand: #6D28D9;
+    --mi-brand-soft: #F5F3FF;
+    --mi-brand-border: #DDD6FE;
+    --mi-ink: #0F172A;
+    --mi-text: #334155;
+    --mi-muted: #64748B;
+    --mi-border: #E2E8F0;
+    --mi-surface: #FFFFFF;
+    --mi-bg: #F8FAFC;
+    --mi-success: #047857;
+    --mi-warning: #B45309;
+    --mi-danger: #B91C1C;
+    --mi-radius: 10px;
+    --mi-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+/* ── Mise en page ─────────────────────────────────────────────── */
+.block-container {
+    max-width: 1180px;
+    padding-top: 2.25rem;
+    padding-bottom: 4rem;
+}
+
+h1, h2, h3, h4 { letter-spacing: -0.01em; color: var(--mi-ink); }
+
+/* ── En-tête de page ──────────────────────────────────────────── */
+.mi-page-header {
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--mi-border);
+}
+.mi-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mi-brand);
+    margin-bottom: 0.35rem;
+}
+.mi-page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--mi-ink);
+    margin: 0;
+}
+.mi-page-subtitle {
+    margin-top: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--mi-muted);
+    max-width: 720px;
+}
+
+/* ── Titres de section ───────────────────────────────────────── */
+.mi-section {
+    margin: 0.5rem 0 0.75rem;
+}
+.mi-section-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--mi-ink);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.mi-section-caption {
+    font-size: 0.875rem;
+    color: var(--mi-muted);
+    margin-top: 0.15rem;
+}
+.mi-count {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--mi-brand);
+    background: var(--mi-brand-soft);
+    border: 1px solid var(--mi-brand-border);
+    border-radius: 999px;
+    padding: 0.05rem 0.55rem;
+}
+
+/* ── Barre latérale : logo ───────────────────────────────────── */
+[data-testid="stSidebarLogo"] {
+    height: 2.75rem;
+    max-width: 100%;
+}
+
+/* ── Indicateurs (st.metric) ─────────────────────────────────── */
+[data-testid="stMetricLabel"] p {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mi-muted);
+}
+[data-testid="stMetricValue"] {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--mi-ink);
+}
+
+/* ── Boutons ─────────────────────────────────────────────────── */
+.stButton > button,
+.stDownloadButton > button,
+.stFormSubmitButton > button {
+    font-weight: 500;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+/* ── Onglets ─────────────────────────────────────────────────── */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--mi-border);
+}
+.stTabs [data-baseweb="tab"] {
+    padding: 0.6rem 0;
+    font-weight: 500;
+}
+
+/* ── Étiquettes ──────────────────────────────────────────────── */
+.mi-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.25rem 0 0.5rem; }
+.mi-tag {
+    font-size: 0.8rem;
+    color: var(--mi-text);
+    background: var(--mi-bg);
+    border: 1px solid var(--mi-border);
+    border-radius: 6px;
+    padding: 0.15rem 0.55rem;
+}
+
+/* ── Résultats de recherche ──────────────────────────────────── */
+.mi-result {
+    background: var(--mi-surface);
+    border: 1px solid var(--mi-border);
+    border-radius: var(--mi-radius);
+    padding: 1rem 1.15rem;
+    margin-bottom: 0.75rem;
+    box-shadow: var(--mi-shadow);
+}
+.mi-result-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+}
+.mi-result-title { font-weight: 600; color: var(--mi-ink); }
+.mi-result-meta { font-size: 0.8rem; color: var(--mi-muted); font-variant-numeric: tabular-nums; }
+.mi-result-text { color: var(--mi-text); line-height: 1.6; font-size: 0.925rem; }
+.mi-score {
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.1rem 0.55rem;
+    white-space: nowrap;
+}
+.mi-score-high { color: var(--mi-success); background: #ECFDF5; border: 1px solid #A7F3D0; }
+.mi-score-mid  { color: var(--mi-warning); background: #FFFBEB; border: 1px solid #FDE68A; }
+.mi-score-low  { color: var(--mi-muted);   background: var(--mi-bg); border: 1px solid var(--mi-border); }
+
+/* ── État vide ───────────────────────────────────────────────── */
+.mi-empty {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border: 1px dashed #CBD5E1;
+    border-radius: var(--mi-radius);
+    background: var(--mi-surface);
+}
+.mi-empty-title { font-weight: 600; color: var(--mi-ink); margin-bottom: 0.3rem; }
+.mi-empty-text { color: var(--mi-muted); font-size: 0.9rem; }
+
+/* ── Barre latérale : carte utilisateur ──────────────────────── */
+.mi-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--mi-border);
+    border-radius: var(--mi-radius);
+    background: var(--mi-bg);
+    margin-bottom: 0.5rem;
+}
+.mi-avatar {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: var(--mi-brand);
+    color: #FFFFFF;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mi-user-info { min-width: 0; }
+.mi-user-name, .mi-user-mail {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mi-user-name { font-weight: 600; font-size: 0.9rem; color: var(--mi-ink); }
+.mi-user-mail { font-size: 0.78rem; color: var(--mi-muted); }
+.mi-status {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    color: var(--mi-muted);
+}
+.mi-dot { width: 8px; height: 8px; border-radius: 50%; background: #10B981; }
+
+/* ── Power BI ────────────────────────────────────────────────── */
+.mi-embed {
+    border: 1px solid var(--mi-border);
+    border-radius: var(--mi-radius);
+    overflow: hidden;
+    background: var(--mi-surface);
+    box-shadow: var(--mi-shadow);
+}
+.mi-embed iframe { display: block; width: 100%; height: 720px; border: 0; }
+
+/* ── Page de connexion ───────────────────────────────────────── */
+.mi-login-head { text-align: center; margin: 3rem 0 1.5rem; }
+.mi-login-title { font-size: 1.5rem; font-weight: 700; color: var(--mi-ink); margin-top: 1.25rem; }
+.mi-login-subtitle { color: var(--mi-muted); font-size: 0.925rem; margin-top: 0.3rem; }
+.mi-login-foot { text-align: center; color: var(--mi-muted); font-size: 0.8rem; margin-top: 1.5rem; }
+
+/* ── Mobile ──────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .block-container { padding-top: 1.25rem; }
+    .mi-page-title { font-size: 1.4rem; }
+    .mi-login-head { margin-top: 1rem; }
+    .mi-embed iframe { height: 480px; }
+}

@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 120
+extend-exclude = ["venv"]
+
+[tool.ruff.lint]
+# Erreurs de syntaxe et Pyflakes (imports inutilisés, noms non définis…)
+select = ["E9", "F"]
+ignore = ["F841"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning"]

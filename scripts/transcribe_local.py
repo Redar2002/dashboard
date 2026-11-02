@@ -12,15 +12,17 @@ Pipeline :
   5. Sauvegarde  : <nom>_raw.txt  et  <nom>_clean.txt
 
 Usage :
-    python transcribe_local.py "meeting.mp3"
-    python transcribe_local.py "meeting.mp4" --lang Anglais --output-dir ./output
-    python transcribe_local.py "meeting.mp3" --no-clean
-    python transcribe_local.py "meeting.mp3" --no-compress
+    python scripts/transcribe_local.py "meeting.mp3"
+    python scripts/transcribe_local.py "meeting.mp4" --lang Anglais --output-dir ./output
+    python scripts/transcribe_local.py "meeting.mp3" --no-clean
+    python scripts/transcribe_local.py "meeting.mp3" --no-compress
 
 Prérequis :
     pip install google-generativeai python-dotenv pydub imageio-ffmpeg
 """
 
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))  # racine du projet
 import argparse
 import os
 import sys
@@ -30,7 +32,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # ─── Chargement de la clé API ────────────────────────────────────────────────
-load_dotenv(dotenv_path=Path(__file__).parent / ".env")
+load_dotenv(dotenv_path=Path(__file__).resolve().parent.parent / ".env")
 
 try:
     import google.generativeai as genai
@@ -353,11 +355,11 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exemples :
-  python transcribe_local.py meeting.mp3
-  python transcribe_local.py meeting.mp4 --lang Anglais
-  python transcribe_local.py meeting.mp3 --output-dir ./resultats
-  python transcribe_local.py meeting.mp3 --no-clean
-  python transcribe_local.py meeting.mp3 --no-compress
+  python scripts/transcribe_local.py meeting.mp3
+  python scripts/transcribe_local.py meeting.mp4 --lang Anglais
+  python scripts/transcribe_local.py meeting.mp3 --output-dir ./resultats
+  python scripts/transcribe_local.py meeting.mp3 --no-clean
+  python scripts/transcribe_local.py meeting.mp3 --no-compress
         """
     )
     parser.add_argument(

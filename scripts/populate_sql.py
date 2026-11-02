@@ -1,3 +1,5 @@
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))  # racine du projet
 import argparse
 import time
 import sys
@@ -12,7 +14,7 @@ def main():
     parser.add_argument("--model", type=str, default="models/gemini-2.0-flash-lite", help="Nom du modèle Gemini à utiliser")
     args = parser.parse_args()
 
-    print(f"Demarrage du script d'importation SQL Server")
+    print("Demarrage du script d'importation SQL Server")
     print(f"Modèle sélectionné : {args.model}")
     if args.limit:
         print(f"Limite d'exécution fixée à {args.limit} réunion(s).")
@@ -21,7 +23,7 @@ def main():
     print("\n[1/4] Test de la connexion SQL Server...")
     sql_check = utils_sql.check_connection()
     if not sql_check["ok"]:
-        print(f"FAILED : Erreur critique: Impossible de joindre SQL Server.")
+        print("FAILED : Erreur critique: Impossible de joindre SQL Server.")
         print(f"   Détails: {sql_check['message']}")
         sys.exit(1)
     print(f"SUCCESS : Connecté avec succès : {sql_check['database']} ({sql_check['driver']})")
@@ -64,16 +66,16 @@ def main():
         # Vérification doublons
         t0 = time.time()
         if utils_sql.meeting_already_inserted(source_meeting_id=m_id):
-            print(f"SKIP : Déjà en base SQL. Ignore.")
+            print("SKIP : Déjà en base SQL. Ignore.")
             skipped_count += 1
             continue
             
         # Structuration IA
-        print(f"AI : Structuration IA en cours...")
+        print("AI : Structuration IA en cours...")
         try:
             transcript = meeting.get("transcript_clean", meeting.get("transcript", ""))
             if not transcript.strip():
-                print(f"FAILED : Erreur : Transcription vide.")
+                print("FAILED : Erreur : Transcription vide.")
                 fail_count += 1
                 continue
                 
@@ -90,7 +92,7 @@ def main():
                 print(f"WARNING : Validation partielle - erreurs trouvées: {errors}")
             
             # Insertion
-            print(f"SQL : Insertion SQL...")
+            print("SQL : Insertion SQL...")
             raw_segments = meeting.get("segments_clean", meeting.get("segments", []))
             
             stats = utils_sql.insert_meeting_full(
@@ -115,7 +117,7 @@ def main():
         time.sleep(2)
 
     # 5. Rapport Final
-    print(f"\n<<< Bilan de l'importation >>>")
+    print("\n<<< Bilan de l'importation >>>")
     print(f"Total évalué     : {skipped_count + processed_count}")
     print(f"Ignorés (exist)  : {skipped_count}")
     print(f"Nouvelles insérées: {success_count}")

@@ -1,4 +1,21 @@
 [theme]
 base = "light"
-primaryColor = "#8B5CF6"
-font = "sans serif"
+primaryColor = "#6D28D9"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F8FAFC"
+textColor = "#0F172A"
+linkColor = "#6D28D9"
+borderColor = "#E2E8F0"
+showWidgetBorder = true
+baseRadius = "8px"
+baseFontSize = 15
+font = "Inter:https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+headingFont = "Inter"
+
+[theme.sidebar]
+backgroundColor = "#F8FAFC"
+secondaryBackgroundColor = "#FFFFFF"
+borderColor = "#E2E8F0"
+
+[client]
+toolbarMode = "minimal"

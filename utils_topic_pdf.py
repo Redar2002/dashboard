@@ -15,7 +15,7 @@ def create_topic_pdf(text, topic_name):
             
             self.set_font('Helvetica', 'B', 18)
             self.set_text_color(255, 255, 255)
-            self.cell(0, 20, f'GUIDE COMPLET', 0, 1, 'C')
+            self.cell(0, 20, 'GUIDE COMPLET', 0, 1, 'C')
             self.set_font('Helvetica', '', 14)
             self.cell(0, 5, self.topic.upper(), 0, 1, 'C')
             self.ln(15)

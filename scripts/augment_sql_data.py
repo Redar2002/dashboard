@@ -8,15 +8,16 @@ Strategie :
      genere un identifiant unique, et insere directement dans SQL Server.
 
 Usage :
-  python augment_sql_data.py                 # 100 reunions par defaut
-  python augment_sql_data.py --count 50      # 50 reunions
-  python augment_sql_data.py --count 5       # test rapide
+  python scripts/augment_sql_data.py                 # 100 reunions par defaut
+  python scripts/augment_sql_data.py --count 50      # 50 reunions
+  python scripts/augment_sql_data.py --count 5       # test rapide
 """
 
+import os as _os, sys as _sys
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))  # racine du projet
 import argparse
 import copy
 import random
-import string
 import sys
 import time
 import uuid
