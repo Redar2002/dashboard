@@ -237,3 +237,84 @@ h1, h2, h3, h4 { letter-spacing: -0.01em; color: var(--mi-ink); }
     .mi-login-head { margin-top: 1rem; }
     .mi-embed iframe { height: 480px; }
 }
+
+/* ── Bandeau d'accueil ───────────────────────────────────────── */
+.mi-banner {
+    background: linear-gradient(120deg, #4C1D95 0%, #6D28D9 55%, #8B5CF6 100%);
+    color: #FFFFFF;
+    border-radius: 16px;
+    padding: 2rem 2.25rem;
+    margin-bottom: 1.5rem;
+}
+.mi-banner-title { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
+.mi-banner-text { margin-top: 0.4rem; max-width: 640px; color: rgba(255, 255, 255, 0.85); }
+.mi-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.mi-badge {
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+/* ── Cartes d'indicateurs ────────────────────────────────────── */
+.mi-kpi {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: var(--mi-surface);
+    border: 1px solid var(--mi-border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    box-shadow: var(--mi-shadow);
+}
+.mi-kpi-icon {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.mi-tone-violet { background: #F5F3FF; color: #6D28D9; }
+.mi-tone-blue   { background: #EFF6FF; color: #1D4ED8; }
+.mi-tone-green  { background: #ECFDF5; color: #047857; }
+.mi-tone-amber  { background: #FFFBEB; color: #B45309; }
+.mi-kpi-label { font-size: 0.8rem; color: var(--mi-muted); }
+.mi-kpi-value { font-size: 1.45rem; font-weight: 700; color: var(--mi-ink); line-height: 1.2; }
+
+/* ── Réunions récentes ───────────────────────────────────────── */
+.mi-meeting {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--mi-border);
+}
+.mi-meeting:last-child { border-bottom: none; }
+.mi-meeting-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mi-brand); flex-shrink: 0; }
+.mi-meeting-main { flex: 1; min-width: 0; }
+.mi-meeting-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--mi-ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mi-meeting-meta { font-size: 0.78rem; color: var(--mi-muted); }
+.mi-meeting-words {
+    font-size: 0.75rem;
+    color: var(--mi-brand);
+    background: var(--mi-brand-soft);
+    border-radius: 999px;
+    padding: 0.1rem 0.55rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .mi-banner { padding: 1.5rem 1.25rem; }
+    .mi-banner-title { font-size: 1.45rem; }
+}

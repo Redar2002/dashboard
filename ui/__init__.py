@@ -89,3 +89,48 @@ def status_line(text: str):
         f'<div class="mi-status"><span class="mi-dot"></span>{escape(text)}</div>',
         unsafe_allow_html=True,
     )
+
+
+_ICONS = {
+    "mic": '<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/>',
+    "text": '<path d="M4 6h16M4 12h16M4 18h10"/>',
+    "clock": '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    "calendar": '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
+}
+
+
+def banner(title: str, subtitle: str, badges=()):
+    """Bandeau d'accueil coloré."""
+    badges_html = "".join(f'<span class="mi-badge">{escape(b)}</span>' for b in badges)
+    st.markdown(
+        f'<div class="mi-banner"><div class="mi-banner-title">{escape(title)}</div>'
+        f'<div class="mi-banner-text">{escape(subtitle)}</div>'
+        f'<div class="mi-badges">{badges_html}</div></div>',
+        unsafe_allow_html=True,
+    )
+
+
+def kpi(label: str, value, icon: str = "text", tone: str = "violet"):
+    """Carte d'indicateur avec pastille d'icône colorée."""
+    svg = (
+        '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+        f'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">{_ICONS.get(icon, "")}</svg>'
+    )
+    st.markdown(
+        f'<div class="mi-kpi"><div class="mi-kpi-icon mi-tone-{escape(tone)}">{svg}</div>'
+        f'<div><div class="mi-kpi-label">{escape(label)}</div>'
+        f'<div class="mi-kpi-value">{escape(str(value))}</div></div></div>',
+        unsafe_allow_html=True,
+    )
+
+
+def meeting_list(items):
+    """Liste compacte : (titre, date, nombre de mots)."""
+    html = "".join(
+        f'<div class="mi-meeting"><div class="mi-meeting-dot"></div>'
+        f'<div class="mi-meeting-main"><div class="mi-meeting-title">{escape(title)}</div>'
+        f'<div class="mi-meeting-meta">{escape(date)}</div></div>'
+        f'<span class="mi-meeting-words">{escape(words)}</span></div>'
+        for title, date, words in items
+    )
+    st.markdown(f'<div class="mi-meetings">{html}</div>', unsafe_allow_html=True)

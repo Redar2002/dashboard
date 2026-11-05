@@ -37,25 +37,62 @@ meetings = load_meetings()
 # EN-TÊTE + INDICATEURS
 # ═══════════════════════════════════════════════════════════════════════════
 
-ui.page_header(
-    "Réunions",
-    "Transcrivez vos réunions, puis générez rapports, comptes rendus et analyses avec Gemini.",
-    eyebrow="Meeting Intelligence",
+ui.banner(
+    "Meeting Intelligence",
+    "Transcrivez vos réunions commerciales, puis laissez l'IA générer rapports, comptes rendus et analyses.",
+    badges=["Gemini AI", "Transcription automatique", "Analyse MEDDIC", "Power BI"],
 )
 
 dates = [d for d in (_meeting_date(m) for m in meetings) if d]
-words = sum(len(m.get("transcript", "").split()) for m in meetings)
+word_counts = [len(m.get("transcript", "").split()) for m in meetings]
+words = sum(word_counts)
+# Estimation à ~130 mots par minute de parole
+minutes = round(words / 130)
 
-k1, k2, k3 = st.columns(3)
+k1, k2, k3, k4 = st.columns(4)
 with k1:
-    with st.container(border=True):
-        st.metric("Réunions enregistrées", len(meetings))
+    ui.kpi("Réunions", len(meetings), icon="mic", tone="violet")
 with k2:
-    with st.container(border=True):
-        st.metric("Mots transcrits", f"{words:,}".replace(",", " "))
+    ui.kpi("Mots transcrits", f"{words:,}".replace(",", " "), icon="text", tone="blue")
 with k3:
-    with st.container(border=True):
-        st.metric("Dernière réunion", max(dates).strftime("%d/%m/%Y") if dates else "—")
+    ui.kpi("Temps de parole (estimé)", f"{minutes // 60} h {minutes % 60:02d}", icon="clock", tone="green")
+with k4:
+    ui.kpi("Dernière réunion", max(dates).strftime("%d/%m/%Y") if dates else "—", icon="calendar", tone="amber")
+
+if meetings:
+    st.write("")
+    c_chart, c_list = st.columns([3, 2])
+    with c_chart:
+        with st.container(border=True):
+            ui.section_header("Volume par réunion", "Nombre de mots transcrits")
+            recent = meetings[:8]
+            st.bar_chart(
+                {
+                    "Réunion": [m.get("title", "Sans titre")[:24] for m in recent],
+                    "Mots": [len(m.get("transcript", "").split()) for m in recent],
+                },
+                x="Réunion",
+                y="Mots",
+                x_label="",
+                y_label="",
+                sort="-Mots",
+                color="#6D28D9",
+                horizontal=True,
+                height=260,
+            )
+    with c_list:
+        with st.container(border=True):
+            ui.section_header("Réunions récentes", count=len(meetings))
+            ui.meeting_list([
+                (
+                    m.get("title", "Sans titre"),
+                    _meeting_date(m).strftime("%d/%m/%Y à %H:%M") if _meeting_date(m) else "Date inconnue",
+                    f"{len(m.get('transcript', '').split()):,} mots".replace(",", " "),
+                )
+                for m in meetings[:5]
+            ])
+
+st.write("")
 
 if MODEL is None:
     st.error(f"Modèle Gemini non configuré : {_model_error}", icon=":material/error:")
