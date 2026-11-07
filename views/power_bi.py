@@ -20,6 +20,6 @@ st.markdown(
 
 st.caption(
     "Utilisez les filtres directement dans le rapport. Si le rapport ne s'affiche pas, "
-    "vérifiez que votre compte Microsoft a accès au tenant 993f3397-d964-4599-8045-90049af66354."
+    "vérifiez que votre compte Microsoft a accès au rapport."
 )
 st.link_button("Ouvrir dans Power BI", REPORT_URL, icon=":material/open_in_new:")

@@ -54,6 +54,18 @@ python -m streamlit run app.py
 
 L'application s'ouvre sur http://localhost:8501.
 
+## Mode démo (captures d'écran)
+
+Pour présenter le projet sans montrer de vraies réunions, ajouter dans `.env` :
+
+```
+DEMO_MODE=1
+```
+
+L'application charge alors des réunions fictives (`demo/meetings_demo.json`) et masque l'email dans la barre latérale. Vos vraies réunions (`meetings.json`) ne sont pas modifiées. Pour revenir aux vraies données, retirer la ligne ou mettre `DEMO_MODE=`.
+
+Les réunions de démonstration se régénèrent avec `python scripts/generate_demo_data.py`.
+
 ## Structure
 
 ```

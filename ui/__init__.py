@@ -7,6 +7,8 @@ from pathlib import Path
 
 import streamlit as st
 
+import utils_data
+
 _ROOT = Path(__file__).resolve().parent.parent
 _CSS_PATH = Path(__file__).resolve().parent / "theme.css"
 LOGO_PATH = str(_ROOT / "logo_inspirigence.jpg")
@@ -76,10 +78,12 @@ def user_card(user: dict):
     name = user.get("full_name") or user.get("email", "")
     initial = escape(name[:1].upper() or "?")
     role = "Administrateur" if user.get("role") == "admin" else "Utilisateur"
+    # En mode démo, l'email n'est pas affiché (captures d'écran publiques)
+    detail = role if utils_data.is_demo() else f'{role} · {user.get("email", "")}'
     st.markdown(
         f'<div class="mi-user"><div class="mi-avatar">{initial}</div>'
         f'<div class="mi-user-info"><div class="mi-user-name">{escape(name)}</div>'
-        f'<div class="mi-user-mail">{escape(role)} · {escape(user.get("email", ""))}</div></div></div>',
+        f'<div class="mi-user-mail">{escape(detail)}</div></div></div>',
         unsafe_allow_html=True,
     )
 

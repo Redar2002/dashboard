@@ -55,7 +55,12 @@ with k1:
 with k2:
     ui.kpi("Mots transcrits", f"{words:,}".replace(",", " "), icon="text", tone="blue")
 with k3:
-    ui.kpi("Temps de parole (estimé)", f"{minutes // 60} h {minutes % 60:02d}", icon="clock", tone="green")
+    ui.kpi(
+        "Temps de parole (estimé)",
+        f"{minutes // 60} h {minutes % 60:02d}" if minutes >= 60 else f"{minutes} min",
+        icon="clock",
+        tone="green",
+    )
 with k4:
     ui.kpi("Dernière réunion", max(dates).strftime("%d/%m/%Y") if dates else "—", icon="calendar", tone="amber")
 
@@ -68,7 +73,7 @@ if meetings:
             recent = meetings[:8]
             st.bar_chart(
                 {
-                    "Réunion": [m.get("title", "Sans titre")[:24] for m in recent],
+                    "Réunion": [m.get("title", "Sans titre").split(" — ")[0][:24] for m in recent],
                     "Mots": [len(m.get("transcript", "").split()) for m in recent],
                 },
                 x="Réunion",

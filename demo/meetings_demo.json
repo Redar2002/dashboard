@@ -1,0 +1,752 @@
+[
+  {
+    "title": "Démo CRM — Client Retail",
+    "meeting_id": "20261028_101500",
+    "filename": "demo_crm_retail.mp3",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bonjour Claire, merci de prendre ce temps. L'objectif aujourd'hui est de vous montrer comment notre CRM peut centraliser vos 40 points de vente.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Bonjour. Oui, aujourd'hui chaque magasin gère ses clients sur Excel, on perd énormément d'informations.",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Combien de temps vos responsables passent-ils à consolider ces fichiers chaque semaine ?",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "Je dirais une demi-journée par semaine et par magasin. Et les chiffres arrivent toujours en retard au siège.",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "Avec la synchronisation automatique, les ventes remontent en temps réel. Je vous montre le tableau de bord du directeur régional.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "C'est clair. Mais l'intégration avec notre logiciel de caisse, c'est possible ?",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Oui, nous avons un connecteur standard. Le déploiement prend en général six semaines pour un réseau de votre taille.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Six semaines, c'est raisonnable. Par contre le budget est un vrai sujet, nous avons déjà dépassé l'enveloppe informatique cette année.",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Je comprends. Nous pouvons démarrer par un pilote sur cinq magasins pour valider le retour sur investissement avant d'étendre.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 135.0,
+        "end": 149.0,
+        "text": "Un pilote m'intéresse. Il faudra que notre directeur financier, Marc, valide.",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 150.0,
+        "end": 164.0,
+        "text": "Parfait. Je vous propose une réunion avec Marc la semaine prochaine, avec un chiffrage du pilote et une estimation des gains de temps.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 165.0,
+        "end": 179.0,
+        "text": "D'accord, je vous envoie ses disponibilités.",
+        "speaker": "Claire (Client)"
+      }
+    ],
+    "transcript": "Bonjour Claire, merci de prendre ce temps. L'objectif aujourd'hui est de vous montrer comment notre CRM peut centraliser vos 40 points de vente. Bonjour. Oui, aujourd'hui chaque magasin gère ses clients sur Excel, on perd énormément d'informations. Combien de temps vos responsables passent-ils à consolider ces fichiers chaque semaine ? Je dirais une demi-journée par semaine et par magasin. Et les chiffres arrivent toujours en retard au siège. Avec la synchronisation automatique, les ventes remontent en temps réel. Je vous montre le tableau de bord du directeur régional. C'est clair. Mais l'intégration avec notre logiciel de caisse, c'est possible ? Oui, nous avons un connecteur standard. Le déploiement prend en général six semaines pour un réseau de votre taille. Six semaines, c'est raisonnable. Par contre le budget est un vrai sujet, nous avons déjà dépassé l'enveloppe informatique cette année. Je comprends. Nous pouvons démarrer par un pilote sur cinq magasins pour valider le retour sur investissement avant d'étendre. Un pilote m'intéresse. Il faudra que notre directeur financier, Marc, valide. Parfait. Je vous propose une réunion avec Marc la semaine prochaine, avec un chiffrage du pilote et une estimation des gains de temps. D'accord, je vous envoie ses disponibilités.",
+    "transcript_clean": "[00:00] Sara (Commercial) : Bonjour Claire, merci de prendre ce temps. L'objectif aujourd'hui est de vous montrer comment notre CRM peut centraliser vos 40 points de vente.\n[00:15] Claire (Client) : Bonjour. Oui, aujourd'hui chaque magasin gère ses clients sur Excel, on perd énormément d'informations.\n[00:30] Sara (Commercial) : Combien de temps vos responsables passent-ils à consolider ces fichiers chaque semaine ?\n[00:45] Claire (Client) : Je dirais une demi-journée par semaine et par magasin. Et les chiffres arrivent toujours en retard au siège.\n[01:00] Sara (Commercial) : Avec la synchronisation automatique, les ventes remontent en temps réel. Je vous montre le tableau de bord du directeur régional.\n[01:15] Claire (Client) : C'est clair. Mais l'intégration avec notre logiciel de caisse, c'est possible ?\n[01:30] Sara (Commercial) : Oui, nous avons un connecteur standard. Le déploiement prend en général six semaines pour un réseau de votre taille.\n[01:45] Claire (Client) : Six semaines, c'est raisonnable. Par contre le budget est un vrai sujet, nous avons déjà dépassé l'enveloppe informatique cette année.\n[02:00] Sara (Commercial) : Je comprends. Nous pouvons démarrer par un pilote sur cinq magasins pour valider le retour sur investissement avant d'étendre.\n[02:15] Claire (Client) : Un pilote m'intéresse. Il faudra que notre directeur financier, Marc, valide.\n[02:30] Sara (Commercial) : Parfait. Je vous propose une réunion avec Marc la semaine prochaine, avec un chiffrage du pilote et une estimation des gains de temps.\n[02:45] Claire (Client) : D'accord, je vous envoie ses disponibilités.",
+    "segments_clean": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bonjour Claire, merci de prendre ce temps. L'objectif aujourd'hui est de vous montrer comment notre CRM peut centraliser vos 40 points de vente.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Bonjour. Oui, aujourd'hui chaque magasin gère ses clients sur Excel, on perd énormément d'informations.",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Combien de temps vos responsables passent-ils à consolider ces fichiers chaque semaine ?",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "Je dirais une demi-journée par semaine et par magasin. Et les chiffres arrivent toujours en retard au siège.",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "Avec la synchronisation automatique, les ventes remontent en temps réel. Je vous montre le tableau de bord du directeur régional.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "C'est clair. Mais l'intégration avec notre logiciel de caisse, c'est possible ?",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Oui, nous avons un connecteur standard. Le déploiement prend en général six semaines pour un réseau de votre taille.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Six semaines, c'est raisonnable. Par contre le budget est un vrai sujet, nous avons déjà dépassé l'enveloppe informatique cette année.",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Je comprends. Nous pouvons démarrer par un pilote sur cinq magasins pour valider le retour sur investissement avant d'étendre.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 135.0,
+        "end": 149.0,
+        "text": "Un pilote m'intéresse. Il faudra que notre directeur financier, Marc, valide.",
+        "speaker": "Claire (Client)"
+      },
+      {
+        "start": 150.0,
+        "end": 164.0,
+        "text": "Parfait. Je vous propose une réunion avec Marc la semaine prochaine, avec un chiffrage du pilote et une estimation des gains de temps.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 165.0,
+        "end": 179.0,
+        "text": "D'accord, je vous envoie ses disponibilités.",
+        "speaker": "Claire (Client)"
+      }
+    ]
+  },
+  {
+    "title": "Découverte — Prospect SaaS",
+    "meeting_id": "20261024_143000",
+    "filename": "decouverte_saas.mp3",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bonjour Thomas, pouvez-vous me présenter rapidement votre équipe commerciale ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Nous sommes douze commerciaux, essentiellement en vente à distance, sur une solution de gestion RH.",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Quel est aujourd'hui votre principal frein pour atteindre vos objectifs ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "Le suivi des rendez-vous. Les notes sont incomplètes et les managers ne savent pas pourquoi les deals se perdent.",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "Combien d'opportunités perdez-vous en phase de négociation, à peu près ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Environ une sur trois. Et on ne sait pas vraiment pourquoi.",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "C'est exactement ce que l'analyse des réunions permet de comprendre : objections récurrentes, temps de parole, prochaines étapes.",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Intéressant. Mais nos clients acceptent-ils d'être enregistrés ?",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Le consentement est demandé en début d'appel et les données restent hébergées en Europe.",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 135.0,
+        "end": 149.0,
+        "text": "D'accord. Qui d'autre devrait participer à la suite ?",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 150.0,
+        "end": 164.0,
+        "text": "Idéalement votre directrice commerciale. Je prépare une démonstration sur vos propres cas d'usage.",
+        "speaker": "Youssef (Commercial)"
+      }
+    ],
+    "transcript": "Bonjour Thomas, pouvez-vous me présenter rapidement votre équipe commerciale ? Nous sommes douze commerciaux, essentiellement en vente à distance, sur une solution de gestion RH. Quel est aujourd'hui votre principal frein pour atteindre vos objectifs ? Le suivi des rendez-vous. Les notes sont incomplètes et les managers ne savent pas pourquoi les deals se perdent. Combien d'opportunités perdez-vous en phase de négociation, à peu près ? Environ une sur trois. Et on ne sait pas vraiment pourquoi. C'est exactement ce que l'analyse des réunions permet de comprendre : objections récurrentes, temps de parole, prochaines étapes. Intéressant. Mais nos clients acceptent-ils d'être enregistrés ? Le consentement est demandé en début d'appel et les données restent hébergées en Europe. D'accord. Qui d'autre devrait participer à la suite ? Idéalement votre directrice commerciale. Je prépare une démonstration sur vos propres cas d'usage.",
+    "transcript_clean": "[00:00] Youssef (Commercial) : Bonjour Thomas, pouvez-vous me présenter rapidement votre équipe commerciale ?\n[00:15] Thomas (Client) : Nous sommes douze commerciaux, essentiellement en vente à distance, sur une solution de gestion RH.\n[00:30] Youssef (Commercial) : Quel est aujourd'hui votre principal frein pour atteindre vos objectifs ?\n[00:45] Thomas (Client) : Le suivi des rendez-vous. Les notes sont incomplètes et les managers ne savent pas pourquoi les deals se perdent.\n[01:00] Youssef (Commercial) : Combien d'opportunités perdez-vous en phase de négociation, à peu près ?\n[01:15] Thomas (Client) : Environ une sur trois. Et on ne sait pas vraiment pourquoi.\n[01:30] Youssef (Commercial) : C'est exactement ce que l'analyse des réunions permet de comprendre : objections récurrentes, temps de parole, prochaines étapes.\n[01:45] Thomas (Client) : Intéressant. Mais nos clients acceptent-ils d'être enregistrés ?\n[02:00] Youssef (Commercial) : Le consentement est demandé en début d'appel et les données restent hébergées en Europe.\n[02:15] Thomas (Client) : D'accord. Qui d'autre devrait participer à la suite ?\n[02:30] Youssef (Commercial) : Idéalement votre directrice commerciale. Je prépare une démonstration sur vos propres cas d'usage.",
+    "segments_clean": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bonjour Thomas, pouvez-vous me présenter rapidement votre équipe commerciale ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Nous sommes douze commerciaux, essentiellement en vente à distance, sur une solution de gestion RH.",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Quel est aujourd'hui votre principal frein pour atteindre vos objectifs ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "Le suivi des rendez-vous. Les notes sont incomplètes et les managers ne savent pas pourquoi les deals se perdent.",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "Combien d'opportunités perdez-vous en phase de négociation, à peu près ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Environ une sur trois. Et on ne sait pas vraiment pourquoi.",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "C'est exactement ce que l'analyse des réunions permet de comprendre : objections récurrentes, temps de parole, prochaines étapes.",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Intéressant. Mais nos clients acceptent-ils d'être enregistrés ?",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Le consentement est demandé en début d'appel et les données restent hébergées en Europe.",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 135.0,
+        "end": 149.0,
+        "text": "D'accord. Qui d'autre devrait participer à la suite ?",
+        "speaker": "Thomas (Client)"
+      },
+      {
+        "start": 150.0,
+        "end": 164.0,
+        "text": "Idéalement votre directrice commerciale. Je prépare une démonstration sur vos propres cas d'usage.",
+        "speaker": "Youssef (Commercial)"
+      }
+    ]
+  },
+  {
+    "title": "Point projet — Équipe Dev",
+    "meeting_id": "20261021_093000",
+    "filename": "point_projet_dev.mp3",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bonjour à tous. On fait le point sur le sprint 14 et sur la mise en production du module de reporting.",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Le connecteur SQL est terminé, les tests passent. Il reste l'export PDF à finaliser.",
+        "speaker": "Karim (Développeur)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Des blocages sur l'export ?",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "Les caractères accentués posent problème dans certaines polices. Je pense corriger ça d'ici jeudi.",
+        "speaker": "Karim (Développeur)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "De mon côté le tableau Power BI est prêt, il me faut juste les nouvelles tables pour le rafraîchissement automatique.",
+        "speaker": "Lina (Data analyst)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Karim, tu peux lui donner l'accès à la base de recette aujourd'hui ?",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Oui, je m'en occupe après la réunion.",
+        "speaker": "Karim (Développeur)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Très bien. Mise en production prévue mardi prochain si la recette est validée vendredi.",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Je préparerai une démonstration pour le comité de pilotage.",
+        "speaker": "Lina (Data analyst)"
+      }
+    ],
+    "transcript": "Bonjour à tous. On fait le point sur le sprint 14 et sur la mise en production du module de reporting. Le connecteur SQL est terminé, les tests passent. Il reste l'export PDF à finaliser. Des blocages sur l'export ? Les caractères accentués posent problème dans certaines polices. Je pense corriger ça d'ici jeudi. De mon côté le tableau Power BI est prêt, il me faut juste les nouvelles tables pour le rafraîchissement automatique. Karim, tu peux lui donner l'accès à la base de recette aujourd'hui ? Oui, je m'en occupe après la réunion. Très bien. Mise en production prévue mardi prochain si la recette est validée vendredi. Je préparerai une démonstration pour le comité de pilotage.",
+    "transcript_clean": "[00:00] Nadia (Chef de projet) : Bonjour à tous. On fait le point sur le sprint 14 et sur la mise en production du module de reporting.\n[00:15] Karim (Développeur) : Le connecteur SQL est terminé, les tests passent. Il reste l'export PDF à finaliser.\n[00:30] Nadia (Chef de projet) : Des blocages sur l'export ?\n[00:45] Karim (Développeur) : Les caractères accentués posent problème dans certaines polices. Je pense corriger ça d'ici jeudi.\n[01:00] Lina (Data analyst) : De mon côté le tableau Power BI est prêt, il me faut juste les nouvelles tables pour le rafraîchissement automatique.\n[01:15] Nadia (Chef de projet) : Karim, tu peux lui donner l'accès à la base de recette aujourd'hui ?\n[01:30] Karim (Développeur) : Oui, je m'en occupe après la réunion.\n[01:45] Nadia (Chef de projet) : Très bien. Mise en production prévue mardi prochain si la recette est validée vendredi.\n[02:00] Lina (Data analyst) : Je préparerai une démonstration pour le comité de pilotage.",
+    "segments_clean": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bonjour à tous. On fait le point sur le sprint 14 et sur la mise en production du module de reporting.",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Le connecteur SQL est terminé, les tests passent. Il reste l'export PDF à finaliser.",
+        "speaker": "Karim (Développeur)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Des blocages sur l'export ?",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "Les caractères accentués posent problème dans certaines polices. Je pense corriger ça d'ici jeudi.",
+        "speaker": "Karim (Développeur)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "De mon côté le tableau Power BI est prêt, il me faut juste les nouvelles tables pour le rafraîchissement automatique.",
+        "speaker": "Lina (Data analyst)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Karim, tu peux lui donner l'accès à la base de recette aujourd'hui ?",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Oui, je m'en occupe après la réunion.",
+        "speaker": "Karim (Développeur)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Très bien. Mise en production prévue mardi prochain si la recette est validée vendredi.",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Je préparerai une démonstration pour le comité de pilotage.",
+        "speaker": "Lina (Data analyst)"
+      }
+    ]
+  },
+  {
+    "title": "Négociation — Atlas Logistique",
+    "meeting_id": "20261017_110000",
+    "filename": "negociation_atlas.mp3",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Merci Paul. Suite à notre proposition, avez-vous pu en discuter en interne ?",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Oui. La solution convient, mais le tarif est 15 % au-dessus de l'offre concurrente.",
+        "speaker": "Paul (Client)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Je comprends. La différence vient surtout de l'accompagnement et de la formation de vos 60 utilisateurs.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "La formation, nous pourrions la faire en interne.",
+        "speaker": "Paul (Client)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "C'est possible. Dans ce cas nous pouvons retirer ce module et rester sur un engagement de deux ans.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Sur deux ans, ça change la donne. Il faudrait aussi un délai de paiement à 60 jours.",
+        "speaker": "Paul (Client)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Je dois le valider avec ma direction, mais cela me semble faisable.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Si vous confirmez ces deux points, nous pouvons signer avant la fin du mois.",
+        "speaker": "Paul (Client)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Je vous envoie la proposition mise à jour demain matin.",
+        "speaker": "Sara (Commercial)"
+      }
+    ],
+    "transcript": "Merci Paul. Suite à notre proposition, avez-vous pu en discuter en interne ? Oui. La solution convient, mais le tarif est 15 % au-dessus de l'offre concurrente. Je comprends. La différence vient surtout de l'accompagnement et de la formation de vos 60 utilisateurs. La formation, nous pourrions la faire en interne. C'est possible. Dans ce cas nous pouvons retirer ce module et rester sur un engagement de deux ans. Sur deux ans, ça change la donne. Il faudrait aussi un délai de paiement à 60 jours. Je dois le valider avec ma direction, mais cela me semble faisable. Si vous confirmez ces deux points, nous pouvons signer avant la fin du mois. Je vous envoie la proposition mise à jour demain matin.",
+    "transcript_clean": "[00:00] Sara (Commercial) : Merci Paul. Suite à notre proposition, avez-vous pu en discuter en interne ?\n[00:15] Paul (Client) : Oui. La solution convient, mais le tarif est 15 % au-dessus de l'offre concurrente.\n[00:30] Sara (Commercial) : Je comprends. La différence vient surtout de l'accompagnement et de la formation de vos 60 utilisateurs.\n[00:45] Paul (Client) : La formation, nous pourrions la faire en interne.\n[01:00] Sara (Commercial) : C'est possible. Dans ce cas nous pouvons retirer ce module et rester sur un engagement de deux ans.\n[01:15] Paul (Client) : Sur deux ans, ça change la donne. Il faudrait aussi un délai de paiement à 60 jours.\n[01:30] Sara (Commercial) : Je dois le valider avec ma direction, mais cela me semble faisable.\n[01:45] Paul (Client) : Si vous confirmez ces deux points, nous pouvons signer avant la fin du mois.\n[02:00] Sara (Commercial) : Je vous envoie la proposition mise à jour demain matin.",
+    "segments_clean": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Merci Paul. Suite à notre proposition, avez-vous pu en discuter en interne ?",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Oui. La solution convient, mais le tarif est 15 % au-dessus de l'offre concurrente.",
+        "speaker": "Paul (Client)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Je comprends. La différence vient surtout de l'accompagnement et de la formation de vos 60 utilisateurs.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "La formation, nous pourrions la faire en interne.",
+        "speaker": "Paul (Client)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "C'est possible. Dans ce cas nous pouvons retirer ce module et rester sur un engagement de deux ans.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Sur deux ans, ça change la donne. Il faudrait aussi un délai de paiement à 60 jours.",
+        "speaker": "Paul (Client)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Je dois le valider avec ma direction, mais cela me semble faisable.",
+        "speaker": "Sara (Commercial)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Si vous confirmez ces deux points, nous pouvons signer avant la fin du mois.",
+        "speaker": "Paul (Client)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Je vous envoie la proposition mise à jour demain matin.",
+        "speaker": "Sara (Commercial)"
+      }
+    ]
+  },
+  {
+    "title": "Suivi client — BioSanté",
+    "meeting_id": "20261010_160000",
+    "filename": "suivi_biosante.mp3",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bonjour Inès, cela fait trois mois que vous utilisez la plateforme. Quel bilan en tirez-vous ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Globalement positif. Les comptes rendus automatiques font gagner beaucoup de temps aux équipes terrain.",
+        "speaker": "Inès (Client)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Y a-t-il des points à améliorer ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "La recherche dans les anciennes réunions pourrait être plus rapide, et nous aimerions un export vers notre outil interne.",
+        "speaker": "Inès (Client)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "L'export est prévu dans la prochaine version. Je note la remarque sur la recherche pour l'équipe produit.",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Très bien. Nous envisageons aussi d'ouvrir l'outil au service marketing.",
+        "speaker": "Inès (Client)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Excellente nouvelle. Combien d'utilisateurs supplémentaires ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Une quinzaine, à partir du trimestre prochain.",
+        "speaker": "Inès (Client)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Je prépare une proposition d'extension et un plan de formation adapté.",
+        "speaker": "Youssef (Commercial)"
+      }
+    ],
+    "transcript": "Bonjour Inès, cela fait trois mois que vous utilisez la plateforme. Quel bilan en tirez-vous ? Globalement positif. Les comptes rendus automatiques font gagner beaucoup de temps aux équipes terrain. Y a-t-il des points à améliorer ? La recherche dans les anciennes réunions pourrait être plus rapide, et nous aimerions un export vers notre outil interne. L'export est prévu dans la prochaine version. Je note la remarque sur la recherche pour l'équipe produit. Très bien. Nous envisageons aussi d'ouvrir l'outil au service marketing. Excellente nouvelle. Combien d'utilisateurs supplémentaires ? Une quinzaine, à partir du trimestre prochain. Je prépare une proposition d'extension et un plan de formation adapté.",
+    "transcript_clean": "[00:00] Youssef (Commercial) : Bonjour Inès, cela fait trois mois que vous utilisez la plateforme. Quel bilan en tirez-vous ?\n[00:15] Inès (Client) : Globalement positif. Les comptes rendus automatiques font gagner beaucoup de temps aux équipes terrain.\n[00:30] Youssef (Commercial) : Y a-t-il des points à améliorer ?\n[00:45] Inès (Client) : La recherche dans les anciennes réunions pourrait être plus rapide, et nous aimerions un export vers notre outil interne.\n[01:00] Youssef (Commercial) : L'export est prévu dans la prochaine version. Je note la remarque sur la recherche pour l'équipe produit.\n[01:15] Inès (Client) : Très bien. Nous envisageons aussi d'ouvrir l'outil au service marketing.\n[01:30] Youssef (Commercial) : Excellente nouvelle. Combien d'utilisateurs supplémentaires ?\n[01:45] Inès (Client) : Une quinzaine, à partir du trimestre prochain.\n[02:00] Youssef (Commercial) : Je prépare une proposition d'extension et un plan de formation adapté.",
+    "segments_clean": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bonjour Inès, cela fait trois mois que vous utilisez la plateforme. Quel bilan en tirez-vous ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Globalement positif. Les comptes rendus automatiques font gagner beaucoup de temps aux équipes terrain.",
+        "speaker": "Inès (Client)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Y a-t-il des points à améliorer ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "La recherche dans les anciennes réunions pourrait être plus rapide, et nous aimerions un export vers notre outil interne.",
+        "speaker": "Inès (Client)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "L'export est prévu dans la prochaine version. Je note la remarque sur la recherche pour l'équipe produit.",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Très bien. Nous envisageons aussi d'ouvrir l'outil au service marketing.",
+        "speaker": "Inès (Client)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Excellente nouvelle. Combien d'utilisateurs supplémentaires ?",
+        "speaker": "Youssef (Commercial)"
+      },
+      {
+        "start": 105.0,
+        "end": 119.0,
+        "text": "Une quinzaine, à partir du trimestre prochain.",
+        "speaker": "Inès (Client)"
+      },
+      {
+        "start": 120.0,
+        "end": 134.0,
+        "text": "Je prépare une proposition d'extension et un plan de formation adapté.",
+        "speaker": "Youssef (Commercial)"
+      }
+    ]
+  },
+  {
+    "title": "Kick-off — Projet Data Marketing",
+    "meeting_id": "20261003_100000",
+    "filename": "kickoff_data_marketing.mp3",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bienvenue à tous pour le lancement du projet. L'objectif : un tableau de bord unique pour suivre les campagnes.",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Aujourd'hui les données sont éparpillées entre trois outils, impossible d'avoir une vue globale.",
+        "speaker": "Hugo (Marketing)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Je propose de centraliser dans SQL Server puis de construire les rapports dans Power BI.",
+        "speaker": "Lina (Data analyst)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "Quels indicateurs pourrons-nous suivre ?",
+        "speaker": "Hugo (Marketing)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "Coût par lead, taux de conversion par canal et retour sur investissement par campagne.",
+        "speaker": "Lina (Data analyst)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Planning : cadrage deux semaines, développement quatre semaines, puis recette.",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Parfait. Je vous transmets les accès aux outils d'ici vendredi.",
+        "speaker": "Hugo (Marketing)"
+      }
+    ],
+    "transcript": "Bienvenue à tous pour le lancement du projet. L'objectif : un tableau de bord unique pour suivre les campagnes. Aujourd'hui les données sont éparpillées entre trois outils, impossible d'avoir une vue globale. Je propose de centraliser dans SQL Server puis de construire les rapports dans Power BI. Quels indicateurs pourrons-nous suivre ? Coût par lead, taux de conversion par canal et retour sur investissement par campagne. Planning : cadrage deux semaines, développement quatre semaines, puis recette. Parfait. Je vous transmets les accès aux outils d'ici vendredi.",
+    "transcript_clean": "[00:00] Nadia (Chef de projet) : Bienvenue à tous pour le lancement du projet. L'objectif : un tableau de bord unique pour suivre les campagnes.\n[00:15] Hugo (Marketing) : Aujourd'hui les données sont éparpillées entre trois outils, impossible d'avoir une vue globale.\n[00:30] Lina (Data analyst) : Je propose de centraliser dans SQL Server puis de construire les rapports dans Power BI.\n[00:45] Hugo (Marketing) : Quels indicateurs pourrons-nous suivre ?\n[01:00] Lina (Data analyst) : Coût par lead, taux de conversion par canal et retour sur investissement par campagne.\n[01:15] Nadia (Chef de projet) : Planning : cadrage deux semaines, développement quatre semaines, puis recette.\n[01:30] Hugo (Marketing) : Parfait. Je vous transmets les accès aux outils d'ici vendredi.",
+    "segments_clean": [
+      {
+        "start": 0.0,
+        "end": 14.0,
+        "text": "Bienvenue à tous pour le lancement du projet. L'objectif : un tableau de bord unique pour suivre les campagnes.",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 15.0,
+        "end": 29.0,
+        "text": "Aujourd'hui les données sont éparpillées entre trois outils, impossible d'avoir une vue globale.",
+        "speaker": "Hugo (Marketing)"
+      },
+      {
+        "start": 30.0,
+        "end": 44.0,
+        "text": "Je propose de centraliser dans SQL Server puis de construire les rapports dans Power BI.",
+        "speaker": "Lina (Data analyst)"
+      },
+      {
+        "start": 45.0,
+        "end": 59.0,
+        "text": "Quels indicateurs pourrons-nous suivre ?",
+        "speaker": "Hugo (Marketing)"
+      },
+      {
+        "start": 60.0,
+        "end": 74.0,
+        "text": "Coût par lead, taux de conversion par canal et retour sur investissement par campagne.",
+        "speaker": "Lina (Data analyst)"
+      },
+      {
+        "start": 75.0,
+        "end": 89.0,
+        "text": "Planning : cadrage deux semaines, développement quatre semaines, puis recette.",
+        "speaker": "Nadia (Chef de projet)"
+      },
+      {
+        "start": 90.0,
+        "end": 104.0,
+        "text": "Parfait. Je vous transmets les accès aux outils d'ici vendredi.",
+        "speaker": "Hugo (Marketing)"
+      }
+    ]
+  }
+]
