@@ -1,5 +1,6 @@
 from datetime import datetime
 
+import altair as alt
 import streamlit as st
 from google.api_core.exceptions import ResourceExhausted
 
@@ -56,7 +57,7 @@ with k2:
     ui.kpi("Mots transcrits", f"{words:,}".replace(",", " "), icon="text", tone="blue")
 with k3:
     ui.kpi(
-        "Temps de parole (estimé)",
+        "Temps de parole",
         f"{minutes // 60} h {minutes % 60:02d}" if minutes >= 60 else f"{minutes} min",
         icon="clock",
         tone="green",
@@ -68,25 +69,30 @@ if meetings:
     st.write("")
     c_chart, c_list = st.columns([3, 2])
     with c_chart:
-        with st.container(border=True):
+        with st.container(border=True, key="card_accueil_1"):
             ui.section_header("Volume par réunion", "Nombre de mots transcrits")
             recent = meetings[:8]
-            st.bar_chart(
+            chart_data = [
                 {
-                    "Réunion": [m.get("title", "Sans titre").split(" — ")[0][:24] for m in recent],
-                    "Mots": [len(m.get("transcript", "").split()) for m in recent],
-                },
-                x="Réunion",
-                y="Mots",
-                x_label="",
-                y_label="",
-                sort="-Mots",
-                color="#6D28D9",
-                horizontal=True,
-                height=260,
+                    "Réunion": m.get("title", "Sans titre").split(" — ")[0][:24],
+                    "Mots": len(m.get("transcript", "").split()),
+                }
+                for m in recent
+            ]
+            chart = (
+                alt.Chart(alt.Data(values=chart_data))
+                .mark_bar(color="#4F46E5", cornerRadiusEnd=4)
+                .encode(
+                    x=alt.X("Mots:Q", title=None),
+                    y=alt.Y("Réunion:N", sort="-x", title=None),
+                    tooltip=["Réunion:N", "Mots:Q"],
+                )
+                .properties(height=260, background="#FFFFFF")
+                .configure_view(strokeWidth=0)
             )
+            st.altair_chart(chart, width="stretch")
     with c_list:
-        with st.container(border=True):
+        with st.container(border=True, key="card_accueil_2"):
             ui.section_header("Réunions récentes", count=len(meetings))
             ui.meeting_list([
                 (
@@ -109,7 +115,7 @@ tab_new, tab_analyse, tab_audit = st.tabs(["Nouvelle réunion", "Analyse", "Audi
 # ═══════════════════════════════════════════════════════════════════════════
 
 with tab_new:
-    with st.container(border=True):
+    with st.container(border=True, key="card_accueil_3"):
         ui.section_header(
             "Importer un enregistrement",
             "Audio ou vidéo : la transcription et le nettoyage sont faits automatiquement.",
@@ -202,7 +208,7 @@ with tab_analyse:
     if not meetings:
         ui.empty_state("Aucune réunion enregistrée", "Importez un enregistrement dans l'onglet « Nouvelle réunion ».")
     else:
-        with st.container(border=True):
+        with st.container(border=True, key="card_accueil_4"):
             ui.section_header(
                 "Réunions enregistrées",
                 "Sélectionnez une ou plusieurs réunions à analyser.",
@@ -331,7 +337,7 @@ with tab_analyse:
 
         # ── Rapport ────────────────────────────────────────────────────────
         if st.session_state.get("improvement_report"):
-            with st.container(border=True):
+            with st.container(border=True, key="card_accueil_5"):
                 ui.section_header("Rapport d'amélioration")
                 kpis = st.session_state.get("kpis") or {}
                 if kpis.get("global_score") is not None:
@@ -354,7 +360,7 @@ with tab_analyse:
                     st.error(f"Erreur PDF : {e}")
 
             # ── Compte rendu formel ────────────────────────────────────────
-            with st.container(border=True):
+            with st.container(border=True, key="card_accueil_6"):
                 ui.section_header("Compte rendu formel", "Document de type « minutes » rédigé à partir de l'analyse.")
 
                 if st.button("Générer le compte rendu", icon=":material/description:", width="stretch", key="btn_gen_pro_re_fixed", type="primary"):
@@ -404,7 +410,7 @@ with tab_analyse:
                         st.audio(st.session_state.pro_audio_bytes, format="audio/mp3")
 
             # ── Email de suivi ─────────────────────────────────────────────
-            with st.container(border=True):
+            with st.container(border=True, key="card_accueil_7"):
                 ui.section_header("Email de suivi", "Brouillon prêt à envoyer, basé sur l'analyse.")
 
                 if st.button("Rédiger l'email", icon=":material/mail:", type="primary"):
@@ -425,7 +431,7 @@ with tab_analyse:
                     st.caption("Conseil : personnalisez la première phrase avant d'envoyer.")
 
             # ── Objections ─────────────────────────────────────────────────
-            with st.container(border=True):
+            with st.container(border=True, key="card_accueil_8"):
                 ui.section_header("Objections et blocages", "Détection des freins du client et réponses suggérées.")
 
                 if st.button("Analyser les objections", icon=":material/report:", type="primary"):
@@ -456,7 +462,7 @@ with tab_analyse:
 # ═══════════════════════════════════════════════════════════════════════════
 
 with tab_audit:
-    with st.container(border=True):
+    with st.container(border=True, key="card_accueil_9"):
         ui.section_header(
             "Audit stratégique global",
             f"Synthèse consolidée de l'ensemble des réunions ({len(meetings)}).",

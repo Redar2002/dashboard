@@ -3,19 +3,19 @@
    ce fichier ne fait qu'affiner la mise en page et les composants maison. */
 
 :root {
-    --mi-brand: #6D28D9;
-    --mi-brand-soft: #F5F3FF;
-    --mi-brand-border: #DDD6FE;
-    --mi-ink: #0F172A;
-    --mi-text: #334155;
-    --mi-muted: #64748B;
-    --mi-border: #E2E8F0;
+    --mi-brand: #4F46E5;
+    --mi-brand-soft: #EEF2FF;
+    --mi-brand-border: #C7D2FE;
+    --mi-ink: #111827;
+    --mi-text: #374151;
+    --mi-muted: #6B7280;
+    --mi-border: #E5E7EB;
     --mi-surface: #FFFFFF;
-    --mi-bg: #F8FAFC;
+    --mi-bg: #F5F6F8;
     --mi-success: #047857;
     --mi-warning: #B45309;
     --mi-danger: #B91C1C;
-    --mi-radius: 10px;
+    --mi-radius: 12px;
     --mi-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.06);
 }
 
@@ -240,22 +240,25 @@ h1, h2, h3, h4 { letter-spacing: -0.01em; color: var(--mi-ink); }
 
 /* ── Bandeau d'accueil ───────────────────────────────────────── */
 .mi-banner {
-    background: linear-gradient(120deg, #4C1D95 0%, #6D28D9 55%, #8B5CF6 100%);
-    color: #FFFFFF;
-    border-radius: 16px;
-    padding: 2rem 2.25rem;
-    margin-bottom: 1.5rem;
+    background: var(--mi-surface);
+    border: 1px solid var(--mi-border);
+    border-left: 4px solid var(--mi-brand);
+    border-radius: var(--mi-radius);
+    padding: 1.6rem 1.9rem;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--mi-shadow);
 }
-.mi-banner-title { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.02em; }
-.mi-banner-text { margin-top: 0.4rem; max-width: 640px; color: rgba(255, 255, 255, 0.85); }
-.mi-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+.mi-banner-title { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; color: var(--mi-ink); }
+.mi-banner-text { margin-top: 0.35rem; max-width: 680px; color: var(--mi-muted); font-size: 0.95rem; }
+.mi-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
 .mi-badge {
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    padding: 0.25rem 0.75rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.16);
-    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 0.2rem 0.65rem;
+    border-radius: 6px;
+    color: var(--mi-brand);
+    background: var(--mi-brand-soft);
+    border: 1px solid var(--mi-brand-border);
 }
 
 /* ── Cartes d'indicateurs ────────────────────────────────────── */
@@ -278,12 +281,9 @@ h1, h2, h3, h4 { letter-spacing: -0.01em; color: var(--mi-ink); }
     align-items: center;
     justify-content: center;
 }
-.mi-tone-violet { background: #F5F3FF; color: #6D28D9; }
-.mi-tone-blue   { background: #EFF6FF; color: #1D4ED8; }
-.mi-tone-green  { background: #ECFDF5; color: #047857; }
-.mi-tone-amber  { background: #FFFBEB; color: #B45309; }
-.mi-kpi-label { font-size: 0.8rem; color: var(--mi-muted); }
-.mi-kpi-value { font-size: 1.45rem; font-weight: 700; color: var(--mi-ink); line-height: 1.2; }
+.mi-kpi-icon { background: var(--mi-brand-soft); color: var(--mi-brand); }
+.mi-kpi-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--mi-muted); }
+.mi-kpi-value { font-size: 1.5rem; font-weight: 700; color: var(--mi-ink); line-height: 1.2; }
 
 /* ── Réunions récentes ───────────────────────────────────────── */
 .mi-meeting {
@@ -318,3 +318,10 @@ h1, h2, h3, h4 { letter-spacing: -0.01em; color: var(--mi-ink); }
     .mi-banner { padding: 1.5rem 1.25rem; }
     .mi-banner-title { font-size: 1.45rem; }
 }
+
+/* ── Cartes (conteneurs à bordure avec une clé « card_… ») : fond blanc ── */
+[class*="st-key-card_"] {
+    background: var(--mi-surface);
+    box-shadow: var(--mi-shadow);
+}
+[data-testid="stForm"] { background: var(--mi-surface); box-shadow: var(--mi-shadow); }

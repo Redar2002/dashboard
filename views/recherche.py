@@ -20,7 +20,7 @@ if not meetings:
     ui.empty_state("Aucune réunion disponible", "Enregistrez d'abord une réunion depuis la page Réunions.")
     st.stop()
 
-with st.container(border=True):
+with st.container(border=True, key="card_recherche_1"):
     labels = [
         f"{i} — {m.get('title', m.get('filename', 'Sans titre'))}"
         for i, m in enumerate(meetings)
@@ -54,7 +54,7 @@ if search_button:
 
 search_results = st.session_state.get("search_results")
 if search_results:
-    with st.container(border=True):
+    with st.container(border=True, key="card_recherche_2"):
         ui.section_header("Réponse")
         st.write(search_results.get("summary", "Aucun résumé disponible."))
 

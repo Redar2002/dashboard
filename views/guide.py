@@ -21,7 +21,7 @@ if not meetings:
     ui.empty_state("Aucune réunion disponible", "Enregistrez d'abord une réunion depuis la page Réunions.")
     st.stop()
 
-with st.container(border=True):
+with st.container(border=True, key="card_guide_1"):
     labels = [
         f"{i} — {m.get('title', m.get('filename', 'Sans titre'))}"
         for i, m in enumerate(meetings)
@@ -55,7 +55,7 @@ if generate_button:
                 st.error(f"Erreur : {e}")
 
 if st.session_state.get("topic_explanation"):
-    with st.container(border=True):
+    with st.container(border=True, key="card_guide_2"):
         st.markdown(st.session_state.topic_explanation)
 
     file_base = f"guide_{st.session_state.topic_name.replace(' ', '_')}"
