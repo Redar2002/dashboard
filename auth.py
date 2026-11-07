@@ -46,6 +46,8 @@ def ensure_users_table(server: str = "localhost", database: str = "MeetingIntell
     Returns:
         True si succès, False sinon
     """
+    if not utils_sql.sql_available(server, database):
+        return False
     try:
         conn = utils_sql.get_sql_connection(server=server, database=database)
         cursor = conn.cursor()
@@ -212,7 +214,8 @@ def login_user(
             }
             return {"ok": True, "user": safe_user, "message": f"Bienvenue, {safe_user['full_name']} !"}
 
-    user = get_user_by_email(email, server=server, database=database)
+    # Sans SQL Server joignable, seul le compte admin du .env peut se connecter
+    user = get_user_by_email(email, server=server, database=database) if utils_sql.sql_available(server, database) else None
 
     if user is None:
         # Message générique pour éviter l'énumération d'emails

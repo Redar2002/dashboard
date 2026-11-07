@@ -3,6 +3,7 @@ utils_sql.py — Connexion et insertions SQL Server pour Meeting Intelligence
 Windows Authentication · ODBC Driver 17 for SQL Server
 """
 import pyodbc
+import streamlit as st
 from datetime import date
 
 
@@ -21,7 +22,7 @@ def _get_best_driver() -> str:
 
 # ─── Connexion ────────────────────────────────────────────────────────────────
 
-def get_sql_connection(server: str = "localhost", database: str = "MeetingIntelligence"):
+def get_sql_connection(server: str = "localhost", database: str = "MeetingIntelligence", timeout: int = 10):
     """
     Retourne une connexion pyodbc en Windows Authentication.
     Essaie ODBC Driver 18 puis 17 automatiquement.
@@ -34,7 +35,20 @@ def get_sql_connection(server: str = "localhost", database: str = "MeetingIntell
         "Trusted_Connection=yes;"
         "TrustServerCertificate=yes;"  # évite l'erreur TLS avec Driver 18
     )
-    return pyodbc.connect(conn_str, timeout=10)
+    return pyodbc.connect(conn_str, timeout=timeout)
+
+
+@st.cache_data(ttl=120, show_spinner=False)
+def sql_available(server: str = "localhost", database: str = "MeetingIntelligence") -> bool:
+    """
+    Indique si SQL Server répond (délai court, résultat mis en cache 2 minutes).
+    Évite d'attendre un timeout à chaque page quand aucun serveur SQL ne tourne.
+    """
+    try:
+        get_sql_connection(server, database, timeout=3).close()
+        return True
+    except Exception:
+        return False
 
 
 def check_connection(server: str = "localhost", database: str = "MeetingIntelligence") -> dict:
